@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+
+
+		<div style="text-align:center;">
+
+			<br>
+
+			<div class="row">
+				<h3>Take a look at our catalogue of hairy beavers</h3>
+			</div>
+
+			<form action="/beaver/new" method="GET">
+				<button type="submit">Add a Beaver</button>
+			</form>
+
+			<br>
+
+			<div class="row">
+				<div id=buttons>
+					<% for( i in beavers){%>
+							<div class="col s2">
+								<a href="/beaver/details/<%=beavers[i]._id %>" type='submit' id=<%=i%> class="waves-effect waves-light btn col s10" style="margin-top:20px;"> <%=beavers[i].name %> </a>
+							</div>
+					<% } %>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<br>
+		<form action="/deleteBeavers" method="GET">
+		  <button type="submit">remove all beavers</button>
+		</form>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+</body>
+</html>
