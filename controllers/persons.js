@@ -15,3 +15,10 @@ router.get('/persons', (req, res) => {		        // render home page and all beav
 		res.render('persons.ejs', { Persons: result } )
 	})
 })
+
+router.get('/deletePersons', (req, res) => {		        // render home page and all beavers
+	// res.render('persons.ejs')
+    Person.removeAll(req, function(){
+		res.redirect('/persons')
+	})
+})

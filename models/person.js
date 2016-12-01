@@ -4,6 +4,8 @@
 const mongoose    = require('mongoose');
 const Schema      = mongoose.Schema;
 
+require("../configurations/db.js")
+
 
 let PersonDb
 
@@ -30,7 +32,7 @@ let PersonSchema = new Schema({
         skills: Array,
     },
     organizations: [{ type: Schema.Types.ObjectId, ref: 'Company' }]
-})
+}, { collection: 'persons' })
     // extras?
         // dob: date,
         // joined: date
@@ -38,25 +40,28 @@ let PersonSchema = new Schema({
 
 let Person = mongoose.model('Person', PersonSchema);
 
-var  Nyeem = new Person ({name: 'Nyeem' })
+var  Nyeem = new Person ({ name: 'Nyeem' })
 console.log(Nyeem)
+
+
 
 Nyeem.save(function(err) {
   if (err) throw err;
-
   console.log('User saved successfully!');
 });
 
 
+
 module.exports = {
 	all: function(cb){
-		Person.find({}, function(err, result) {
+		Person.find('persons', {}, function(err, result) {
             if (err) throw err;
+			cb(result);
 
             // object of all the users
             console.log(result);
         });
-	}
+	},
 	// findOne: function(req, cb){
 	// 	Person.findOne({_id: ObjectID(req.params.id)}, (err, result) =>{
 	// 		if (err) return console.log(err);
@@ -89,11 +94,11 @@ module.exports = {
     //         }
     //     )
     // },
-    // removeAll: function(req, cb) {
-    //     Person.remove(
-    //         (err, result) => {
-    //             if (err) return console.log(err);
-    //             cb(result);
-    //         })
-    // }
+    removeAll: function(req, cb) {
+        Person.remove(
+            (err, result) => {
+                if (err) return console.log(err);
+                cb(result);
+            })
+    }
 }
