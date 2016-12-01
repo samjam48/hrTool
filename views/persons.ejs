@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+
+
+		<div style="text-align:center;">
+
+			<br>
+
+			<div class="row">
+				<h3>All the people who work  with startit.</h3>
+			</div>
+
+			<form action="/person/new" method="GET">
+				<button type="submit">Add a Person</button>
+			</form>
+
+			<br>
+
+			<div class="row">
+				<div id=buttons>
+					<% for( i in Persons){%>
+							<div class="col s2">
+								<a href="/person/details/<%=Persons[i]._id %>" type='submit' id=<%=i%> class="waves-effect waves-light btn col s10" style="margin-top:20px;"> <%=Persons[i].name %> </a>
+							</div>
+					<% } %>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<br>
+		<form action="/deletePersons" method="GET">
+		  <button type="submit">remove all people</button>
+		</form>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+</body>
+</html>

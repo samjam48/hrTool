@@ -14,6 +14,9 @@ app.set('view engine', 'ejs');  // res.render(view, locals);
 app.use(express.static('public'))
 
 // require all routes for beavers
+const personscontrollers = require('./controllers/persons')
+app.use(personscontrollers)
+
 const beaverscontrollers = require('./controllers/beavers')
 app.use(beaverscontrollers)
 
@@ -22,6 +25,7 @@ app.use(relationshipscontrollers)
 
 const sightingscontrollers = require('./controllers/sightings')
 app.use(sightingscontrollers)
+
 
 app.get('reactapp', function(req, res){
   res.render('reactapp')

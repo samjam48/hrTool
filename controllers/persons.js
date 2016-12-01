@@ -9,8 +9,9 @@ const Person = require("../models/person");
 module.exports = router
 
 
-router.get('/beavers', (req, res) => {		        // render home page and all beavers
-	Beaver.all(function(result){
-		res.render('beavers.ejs', {beavers: result})
+router.get('/persons', (req, res) => {		        // render home page and all beavers
+	// res.render('persons.ejs')
+    Person.all(function(result){
+		res.render('persons.ejs', { Persons: result } )
 	})
 })
