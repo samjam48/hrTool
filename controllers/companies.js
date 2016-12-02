@@ -4,6 +4,9 @@ const router = express.Router();
 const Person = require("../models/person");
 const CompanySchema = require('../models/company');
 
+// const Mongo       = require('mongodb')
+// const ObjectID    = Mongo.ObjectID
+
 
 module.exports = router;
 
@@ -14,10 +17,17 @@ router.get('/companies', (req, res) => {
 })
 
 router.get('/Company/details/:id', (req, res) => {	
-	mongoose.model('Company').findOne(req.params.id , function(result) {
-		res.render('details.ejs', {Company:result});
+	
+	mongoose.model('Company').findCompany(req, function(result) {
+		// console.log(result)
+		// console.log('---------------------------')
+		// console.log(Object.keys(result))
+		res.render('companyDetails.ejs', {Company:result});
 	})
 })
+
+
+
 // // REMOVE - Rendering done by React
 router.get('/Company/new', (req, res) => {           // render create form
 	res.render('create.ejs');
@@ -60,7 +70,7 @@ router.post('/Company/create', (req, res) =>{
 		news : req.body.news,
 		pitch : req.body.pitch,
 		lastUpdate  : req.body.lastUpdate,
-		// partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
+		partners : req.body [{  }],
 		fundRaised : req.body.fundRaised
 
 
@@ -113,61 +123,20 @@ router.get('/Company/create', (req, res) =>{
 		news: 'Raised 500.000 from the governement for giving quality education',
 		pitch: 'Become Full Stack Web Developer in 13 weeks!*',
 		lastUpdate : new Date("2016-12-25"),
-		// partners: [{ type: Schema.Types.ObjectId, ref: 'Company' }],
+		partners: [{ _id: '5841ca9478c7dc23808491a7' }],
 		fundRaised: 800000
 	});
 
 	newCompany.save(function(err) {
 	if (err) throw err;
-	console.log('StartUp saved successfully from router!');
+	console.log('Demo StartUp successfully saved!');
 	});
 
 
-
-
-
-
-	// mongoose.model('Company').save( req, function(){
-	// 	let id = req.body._id
-	// 	birth = {'id': id,
-	// 		 	 'date': req.body.date,
-	// 			 'location': req.body.location,
-	// 			 'health': req.body.health,
-	// 			 'name' : req.body.name }
-    //         name : req.body.name,
-    //         mentor : req.body.mentor,
-    //         description : req.body.description,
-    //         // address :  {
-    //         //     streetName  : req.body String,
-    //         //     streetNumber  : req.body Number,
-    //         //     postCode  : req.body Number,
-    //         //     locality  : req.body String,
-    //         //     city  : req.body String,
-    //         //     country  : req.body String,
-    //         // }, 
-    //         status : req.body.status,
-    //         website : req.body.website,
-    //         // socialmedia : {
-    //         //     twitter : req.body String,
-    //         //     facebook : req.body String,
-    //         //     linkedin : req.body String,
-    //         //     youtube : req.body String,
-    //         //     instagram : req.body String
-    //         // },
-    //         spokePerson  : req.body.spokePerson,
-    //         // team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
-    //         sector : req.body.sector,
-    //         skills : req.body.skills,
-    //         onSite  : req.body.onSite,
-    //         news : req.body.news,
-    //         pitch : req.body.pitch,
-    //         lastUpdate  : req.body.lastUpdate,
-    //         // partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
-    //         fundRaised : req.body.fundRaised
-	// })
-
-		res.redirect('/companies');
+	res.redirect('/companies');
 })
+
+
 
 router.get('/Company/edit/:id', (req, res) => {		// render edit Company page
 	mongoose.model('Company').findOne(req.params.id, function(result){

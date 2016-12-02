@@ -116,10 +116,10 @@ var  newperson = new Person ({
         mainSkills: [ "mainSkillsTest", "mainSkillsTest", "mainSkillsTest"],
         skills: [ "skillsTest", "skillsTest", "skillsTest", "skillsTest", "skillsTest"],
 }})
-console.log(newperson)
+// console.log(newperson)
 
-newperson.save(function(err) {
-  if (err) throw err;
-  console.log('User saved successfully!');
-});
+// newperson.save(function(err) {
+//   if (err) throw err;
+//   console.log('User saved successfully!');
+// });
 

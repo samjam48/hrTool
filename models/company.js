@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
+// const Mongo       = require('mongodb')
+// const ObjectID    = Mongo.ObjectID
+
+
 let CompanySchema = new Schema({
    
     name: String,
@@ -45,8 +49,8 @@ CompanySchema.statics.all = function(cb){
     })
 }
 
-CompanySchema.statics.findOne = function(req, cb){
-    this.findById( id, (err, result) =>{
+CompanySchema.statics.findCompany = function(req, cb){
+    this.findById( req.params.id, (err, result) =>{
         if (err) return console.log(err);
         cb(result);
     })
@@ -119,7 +123,7 @@ CompanySchema.statics.removeAll = function(req, cb) {
 
 
 
-// let Company = mongoose.model('Company', CompanySchema);
+let Company = mongoose.model('Company', CompanySchema);
 
 // let newCompany = new Company({
 //     name: 'Elium Academy',
