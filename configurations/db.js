@@ -1,7 +1,9 @@
 const mongoose    = require('mongoose');
 
 
-	// online server if desired 'mongodb://sam:password@ds053176.mlab.com:53176/node1es1'
+	// online sandbox server =  'mongodb://user:password@ds119608.mlab.com:19608/hrtool'
+    // offline server        =  ...
+
 mongoose.connect('mongodb://user:password@ds119608.mlab.com:19608/hrtool')
 var db = mongoose.connection;
 
@@ -12,7 +14,7 @@ db.once('open', function() {
 
 
 
-var dbCollection = db.collection('persons');
+// var dbCollection = db.collection('persons');
 
 // console.log(dbCollection)
 
