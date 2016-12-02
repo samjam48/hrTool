@@ -18,6 +18,9 @@ app.use(express.static('public'))
 const personscontrollers = require('./controllers/persons')
 app.use(personscontrollers)
 
+const companiescontrollers = require('./controllers/companies')
+app.use(companiescontrollers)
+
 const beaverscontrollers = require('./controllers/beavers')
 app.use(beaverscontrollers)
 
