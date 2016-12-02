@@ -40,12 +40,12 @@ let PersonSchema = new Schema({
 
 let Person = mongoose.model('Person', PersonSchema);
 
-var  Nyeem = new Person ({ name: 'Nyeem' })
-console.log(Nyeem)
+var  newperson = new Person ({ name: 'Pedro' })
+console.log(newperson)
 
 
 
-Nyeem.save(function(err) {
+newperson.save(function(err) {
   if (err) throw err;
   console.log('User saved successfully!');
 });
@@ -62,38 +62,38 @@ module.exports = {
             console.log(result);
         });
 	},
-	// findOne: function(req, cb){
-	// 	Person.findOne({_id: ObjectID(req.params.id)}, (err, result) =>{
-	// 		if (err) return console.log(err);
-	// 		cb(result);
-	// 	})
-	// },
-	// create: function(req, cb){
-	// 	return Person.save(req.body, (err, result) => {
-	// 		if (err) return console.log(err);
-	// 		cb(result);
-	// 	})
-	// },
-	// update: function(req, cb){ 
-	// 	Person.findOneAndUpdate({_id: ObjectID(req.params.id)},
-	// 		{$set:{
-	// 			name	  : req.body.name,
-	// 			birthdate : req.body.birthdate,
-	// 			health	  : req.body.health
-	// 		}},
-	// 		(err, result) => {
-	// 			if (err) return console.log(err);
-	// 			cb(result);
-	// 	})
-	// },
-	// delete: function(req, cb) {
-    //     Person.findOneAndDelete({_id: ObjectID(req.params.id)},
-    //         (err, result) => {
-    //             if (err) return console.log(err);
-    //             cb(result);
-    //         }
-    //     )
-    // },
+	findOne: function(req, cb){
+		Person.findById( req.params.id, (err, result) =>{
+			if (err) return console.log(err);
+			cb(result);
+		})
+	},
+	create: function(req, cb){
+		return Person.save(req.body, (err, result) => {
+			if (err) return console.log(err);
+			cb(result);
+		})
+	},
+	update: function(req, cb){ 
+		Person.Update({_id: req.params.id},
+			{$set:{
+				name	  : req.body.name,
+				birthdate : req.body.birthdate,
+				health	  : req.body.health
+			}},
+			(err, result) => {
+				if (err) return console.log(err);
+				cb(result);
+		})
+	},
+	delete: function(req, cb) {
+        Person.remove({_id: req.params.id},
+            (err, result) => {
+                if (err) return console.log(err);
+                cb(result);
+            }
+        )
+    },
     removeAll: function(req, cb) {
         Person.remove(
             (err, result) => {
