@@ -5,6 +5,7 @@ const MongoClient = require('mongodb').MongoClient, assert = require('assert');
 const path = require('path');
 const ID = require('mongodb').ObjectID
 
+require("./configurations/db.js")
 
 
 app.use(bodyParser.urlencoded({extended: true}))		// enables body parser
