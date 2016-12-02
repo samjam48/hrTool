@@ -88,38 +88,3 @@ PersonSchema.statics.removeAll = function(req, cb) {
     )
 }
 
-
-
-// ---------------------------------- BASIC TESTING STUFF - REMOVE WHEN ABLE TO ADD USER NORMALLY ----------------------------------------
-
-
-let Person = mongoose.model('Person', PersonSchema);
-
-var  newperson = new Person ({ 
-    name: "nameTest",
-    gender: "genderTest",
-    location: "locationTest",
-    website: "websiteTest",
-    socialmedia: {
-        twitter: "twitterTest",
-        facebook: "facebookTest",
-        linkedin: "linkedinTest",
-        youtube: "youtubeTest",
-        instagram: "instagramTest",
-    },
-    // workingAt : [{ type: 1, ref: 'Company' }],
-    daysPerWeek: 2,
-    role:  "roleTest",
-    isMentor: true,
-    // menteeList: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-    skills: {
-        mainSkills: [ "mainSkillsTest", "mainSkillsTest", "mainSkillsTest"],
-        skills: [ "skillsTest", "skillsTest", "skillsTest", "skillsTest", "skillsTest"],
-}})
-// console.log(newperson)
-
-// newperson.save(function(err) {
-//   if (err) throw err;
-//   console.log('User saved successfully!');
-// });
-
