@@ -75,48 +75,6 @@ router.post('/Company/create', (req, res) =>{
 
 
 
-
-
-
-	// mongoose.model('Company').save( req, function(){
-	// 	let id = req.body._id
-	// 	birth = {'id': id,
-	// 		 	 'date': req.body.date,
-	// 			 'location': req.body.location,
-	// 			 'health': req.body.health,
-	// 			 'name' : req.body.name }
-    //         name : req.body.name,
-    //         mentor : req.body.mentor,
-    //         description : req.body.description,
-    //         // address :  {
-    //         //     streetName  : req.body String,
-    //         //     streetNumber  : req.body Number,
-    //         //     postCode  : req.body Number,
-    //         //     locality  : req.body String,
-    //         //     city  : req.body String,
-    //         //     country  : req.body String,
-    //         // }, 
-    //         status : req.body.status,
-    //         website : req.body.website,
-    //         // socialmedia : {
-    //         //     twitter : req.body String,
-    //         //     facebook : req.body String,
-    //         //     linkedin : req.body String,
-    //         //     youtube : req.body String,
-    //         //     instagram : req.body String
-    //         // },
-    //         spokePerson  : req.body.spokePerson,
-    //         // team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
-    //         sector : req.body.sector,
-    //         skills : req.body.skills,
-    //         onSite  : req.body.onSite,
-    //         news : req.body.news,
-    //         pitch : req.body.pitch,
-    //         lastUpdate  : req.body.lastUpdate,
-    //         // partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
-    //         fundRaised : req.body.fundRaised
-	// })
-
 		res.redirect('/companies');
 })
 
