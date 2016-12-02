@@ -119,7 +119,7 @@ CompanySchema.statics.removeAll = function(req, cb) {
 
 
 
-// let Company = mongoose.model('Company', CompanySchema);
+let Company = mongoose.model('Company', CompanySchema);
 
 // let newCompany = new Company({
 //     name: 'Elium Academy',
