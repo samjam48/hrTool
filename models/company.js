@@ -1,13 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-require('../configurations/db.js');
 
 let CompanySchema = new Schema({
+   
     name: String,
     mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
     description: String,
-    address: String, //could be an obj
+    address: {
+        streetName : String,
+        streetNumber : Number,
+        postCode : Number,
+        locality : String,
+        city : String,
+        country : String,
+    }, 
     status: String,
     website: String,
     socialmedia: {
@@ -30,64 +37,127 @@ let CompanySchema = new Schema({
 
 },{ collection: 'companies' });
 
-let Company = mongoose.model('Company', CompanySchema);
 
-let Elium = new Company({
-    name: 'Elium Academy'
-});
-
-Elium.save(function(err) {
-  if (err) throw err;
-  console.log('StartUp saved successfully!');
-});
-
-
-module.exports = {
-	all: function(cb){
-		Company.find('companies', {}, (err, result) => {
+CompanySchema.statics.all = function(cb){
+    this.find( {}, function(err, result) {
             if (err) throw err;
 			cb(result);
-            console.log(result);
-        });
-	},
-	findOne: function(req, cb){
-		Company.findOne({_id: ObjectID(req.params.id)}, (err, result) =>{
-			if (err) 
-                return console.log(err);
-			cb(result);
-		})
-	},
-	create: function(req, cb){
-		return Company.save(req.body, (err, result) => {
-			if (err) return console.log(err);
-			cb(result);
-		})
-	},
-	update: function(req, cb){ 
-		Company.findOneAndUpdate({_id: ObjectID(req.params.id)},
-			{$set:{
-				name	  : req.body.name,
-				birthdate : req.body.birthdate,
-				health	  : req.body.health
-			}},
-			(err, result) => {
-				if (err) return console.log(err);
-				cb(result);
-		})
-	},
-	delete: function(req, cb) {
-        Company.findOneAndDelete({_id: ObjectID(req.params.id)},
-            (err, result) => {
-                if (err) return console.log(err);
-                cb(result);
-            }
-        )
-    },
-    removeAll: function(req, cb) {
-        Company.remove(
-            (err, result) => {
-                if (err) return console.log(err);
-                cb(result);
-            })
-    }
+    })
 }
+
+CompanySchema.statics.findOne = function(req, cb){
+    this.findById( id, (err, result) =>{
+        if (err) return console.log(err);
+        cb(result);
+    })
+}
+
+CompanySchema.statics.update = function(req, cb){ 
+    this.Update({_id: req.params.id},
+        {$set:{
+            name : req.body.name,
+            mentor : req.body.mentor,
+            description : req.body.description,
+            // address :  {
+            //     streetName  : req.body String,
+            //     streetNumber  : req.body Number,
+            //     postCode  : req.body Number,
+            //     locality  : req.body String,
+            //     city  : req.body String,
+            //     country  : req.body String,
+            // }, 
+            status : req.body.status,
+            website : req.body.website,
+            // socialmedia : {
+            //     twitter : req.body String,
+            //     facebook : req.body String,
+            //     linkedin : req.body String,
+            //     youtube : req.body String,
+            //     instagram : req.body String
+            // },
+            spokePerson  : req.body.spokePerson,
+            // team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
+            sector : req.body.sector,
+            skills : req.body.skills,
+            onSite  : req.body.onSite,
+            news : req.body.news,
+            pitch : req.body.pitch,
+            lastUpdate  : req.body.lastUpdate,
+            // partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
+            fundRaised : req.body.fundRaised
+
+            
+        }},
+        (err, result) => {
+            if (err) return console.log(err);
+            cb(result);
+        }
+    )
+}
+
+CompanySchema.statics.delete = function(req, cb) {
+    this.remove({_id: req.params.id},
+        (err, result) => {
+            if (err) return console.log(err);
+            cb(result);
+        }
+    )
+}
+
+
+CompanySchema.statics.removeAll = function(req, cb) {
+    this.remove(
+        (err, result) => {
+            if (err) return console.log(err);
+            cb(result);
+        }
+    )
+}
+
+
+
+
+
+
+// let Company = mongoose.model('Company', CompanySchema);
+
+// let newCompany = new Company({
+//     name: 'Elium Academy',
+//     // mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+//     description: 'Coding Bootcamp',
+//     address: {
+//         streetName : 'Science Road',
+//         streetNumber : 23,
+//         postCode : 1000,
+//         locality : 'Brussels',
+//         city : 'Brussels',
+//         country : 'Belgium',
+//     }, 
+//     status: 'Active',
+//     website: 'www.elium.academy',
+//     socialmedia: {
+//         twitter: 'twitter.co/elium-academy',
+//         facebook: 'facebook.com/elium-academy',
+//         linkedin: 'linkedin.com/elium-academy',
+//         youtube: 'youtube.com/elium-academy',
+//         instagram: 'instagr.am/elium-academy'
+//     },
+//     // spokePerson : { type: Schema.Types.ObjectId, ref: 'Person' },
+//     // team: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+//     sector: ['Full Stack' , 'Growth Hack' , 'Education' , 'Bootcamp'],
+//     skills: ['Web Developement' , 'Entrepreneurship' ],
+//     onSite : true,
+//     news: 'Raised 500.000 from the governement for giving quality education',
+//     pitch: 'Become Full Stack Web Developer in 13 weeks!*',
+//     lastUpdate : new Date("2016-12-25"),
+//     // partners: [{ type: Schema.Types.ObjectId, ref: 'Company' }],
+//     fundRaised: 800000
+// });
+
+// newCompany.save(function(err) {
+//   if (err) throw err;
+//   console.log('StartUp saved successfully!');
+// });
+
+
+module.exports = CompanySchema;
