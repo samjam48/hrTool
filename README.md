@@ -1,25 +1,13 @@
-# ReduxSimpleStarter
+# hrTool
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+Sam and Nyeem's final project at Elium Academy to build an awesome hr tool. Pedro mentoring
 
 ###Getting Started###
 
-There are two methods for getting started with this repo.
+npm install modules in both directoris (client and server)
+npm start in 'client'
+npm run dev in 'server'
 
-####Familiar with Git?#####
-Checkout this repo, install dependencies, then start the gulp process with the following:
-
-```
-	> git clone git@github.com:StephenGrider/ReduxSimpleStarter.git
-	> cd ReduxSimpleStarter
-	> npm install
-	> npm start
-```
-
-####Not Familiar with Git?#####
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-	> npm install
-	> npm start
-```
+### Trello board
+active state of project and to do's etc...
+https://trello.com/hrtool4
