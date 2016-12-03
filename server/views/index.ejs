@@ -20,31 +20,21 @@
 			<br>
 
 			<div class="row">
-				<h3>Take a look at our catalogue of hairy beavers</h3>
+				<h3>HR-HR-HR!</h3>
 			</div>
 
-			<form action="/beaver/new" method="GET">
-				<button type="submit">Add a Beaver</button>
+			<form action="/person/new" method="GET">
+				<button type="submit">Add someone</button>
 			</form>
 
 			<br>
 
-			<form action="/relationships" method="GET">
-			  <button type="submit">Look at the Beaver relationships</button>
+			<form action="/company/new" method="GET">
+				<button type="submit">Add company</button>
 			</form>
 
 			<br>
 
-
-			<div class="row">
-				<div id=buttons>
-					<% for( i in beavers){%>
-							<div class="col s2">
-								<a href="/beaver/details/<%=beavers[i]._id %>" type='submit' id=<%=i%> class="waves-effect waves-light btn col s10" style="margin-top:20px;"> <%=beavers[i].name %> </a>
-							</div>
-					<% } %>
-				</div>
-			</div>
 
 		</div>
 
@@ -52,18 +42,15 @@
 
 	<br>
 
-		<form action="/deleteRelationships" method="GET">
-		  <button type="submit">remove all relationships</button>
+		<form action="/deleteCompanies" method="GET">
+		  <button type="submit">remove all companies</button>
 		</form>
 
 	<br>
-		<form action="/deleteBeavers" method="GET">
-		  <button type="submit">remove all beavers</button>
+		<form action="/deletePersons" method="GET">
+		  <button type="submit">remove all the people</button>
 		</form>
 	<br>
-		<form action="/deleteSightings" method="GET">
-		  <button type="submit">remove all sightings</button>
-		</form>
 
 
 <footer>
