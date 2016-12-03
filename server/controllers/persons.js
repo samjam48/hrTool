@@ -9,7 +9,10 @@ module.exports = router
 
 	let Person = mongoose.model('Person', PersonSchema);
 
+router.get('/', (req, res) => {		                // render home page and all beavers
+	res.render('index.ejs')
 
+})
 
 router.get('/persons', (req, res) => {		        // render all Persons
 	// res.render('persons.ejs')

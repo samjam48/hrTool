@@ -21,14 +21,6 @@ app.use(personscontrollers)
 const companiescontrollers = require('./controllers/companies')
 app.use(companiescontrollers)
 
-const beaverscontrollers = require('./controllers/beavers')
-app.use(beaverscontrollers)
-
-const relationshipscontrollers = require('./controllers/relationships')
-app.use(relationshipscontrollers)
-
-const sightingscontrollers = require('./controllers/sightings')
-app.use(sightingscontrollers)
 
 
 app.get('reactapp', function(req, res){
@@ -36,7 +28,7 @@ app.get('reactapp', function(req, res){
 }) 
 
 
-app.listen(process.env.PORT || 3000, () => {    // only display connection port if succesfully connecting to db
+module.exports = app.listen(process.env.PORT || 3000, () => {    // only display connection port if succesfully connecting to db
   console.log('swinging on 3000');
 })
 

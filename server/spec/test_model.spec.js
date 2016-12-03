@@ -1,23 +1,72 @@
-const app = require("../configurations/db.js")
+const app = require("../server.js") //require("../configurations/db.js")
 const supertest = require('supertest');
-let Agent = supertest.agent(app)
+let agent = supertest.agent(app)
 
 // const stackTract = require('stack-trace')
 // const path = require('path')
 // const colors = require('colors')
 
 
-describe('GET /persons', function() {
-  it('respond with json', function(done) {
-    Agent
-      .get('/persons')
-      .expect('Content-Type', /json/)
-      .expect(200, done);
-  });
+describe ('GET loader.ejs:::', function(){
+
+	it('should render the loader', function(done){
+		agent
+		.get('/')
+		.expect('Content-Type', /html/)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(200)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+	  })
+  })
+
+	it('should render an error', function(done){
+		agent
+		.get('/fckthsst')
+		.expect('Content-Type', /html/)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(404)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+	  })
+	})
 });
 
+describe ('GET persons.ejs:::', function(){
 
+	it('should render persons', function(done){
+		agent
+		.get('/persons')
+		.expect('Content-Type', /html/)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(200)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+	  })
+	})
+});
 
+describe ('GET companies.ejs:::', function(){
+
+	it('should render companies', function(done){
+		agent
+		.get('/companies')
+		.expect('Content-Type', /html/)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(200)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+  	})
+  })
+});
 // var person = require('../models/person')
 
 // const mongoose    = require('mongoose');
