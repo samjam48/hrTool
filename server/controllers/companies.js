@@ -45,7 +45,7 @@ router.post('/Company/create', (req, res) =>{
 		name : req.body.name,
 		mentor : req.body.mentor,
 		description : req.body.description,
-		// address :  {
+		// address :  {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
 		//     streetName  : req.body String,
 		//     streetNumber  : req.body Number,
 		//     postCode  : req.body Number,
@@ -55,7 +55,7 @@ router.post('/Company/create', (req, res) =>{
 		// }, 
 		status : req.body.status,
 		website : req.body.website,
-		// socialmedia : {
+		// socialmedia : {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
 		//     twitter : req.body String,
 		//     facebook : req.body String,
 		//     linkedin : req.body String,
@@ -63,17 +63,15 @@ router.post('/Company/create', (req, res) =>{
 		//     instagram : req.body String
 		// },
 		spokePerson  : req.body.spokePerson,
-		// team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
+		team : req.body.team,
 		sector : req.body.sector,
 		skills : req.body.skills,
 		onSite  : req.body.onSite,
 		news : req.body.news,
 		pitch : req.body.pitch,
 		lastUpdate  : req.body.lastUpdate,
-		partners : req.body [{  }],
+		partners : req.body.partners,
 		fundRaised : req.body.fundRaised
-
-
 
 
 	});
