@@ -1,7 +1,9 @@
 const mongoose    = require('mongoose');
-var person = require('../../models/person')
+const PersonSchema = require("../../models/person");
 var company= require('../../models/company')
 
+
+let Person = mongoose.model('Person', PersonSchema);
 var personID
 var companyID
 
@@ -80,6 +82,45 @@ describe('Person Model Test set', function(){
         }));
 
     })
+
+    it('check findItem finds a correct person', function(done){
+
+        Person.findItem(personID, ((err, res) => {
+
+          expect(res.name).toEqual('nameTest')
+          expect(err).toBe(null)
+
+          done();
+        }));
+
+    })
+
+
+    it('check find all finds all persons', function(done){
+
+        Person.all(personID, ((err, res) => {
+
+          expect(res.name).toEqual('nameTest')
+          expect(err).toBe(null)
+
+          done();
+        }));
+
+    })
+
+
+    it('check delete deletes specific person', function(done){
+
+        Person.delete(personID, ((err, res) => {
+
+          expect(res.name).toEqual('nameTest')
+          expect(err).toBe(null)
+
+          done();
+        }));
+
+    })
+
 
 
     it('check company saved has correct name', function(done){

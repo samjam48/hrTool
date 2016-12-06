@@ -7,7 +7,7 @@ let agent = supertest.agent(app)
 // const path = require('path')
 // const colors = require('colors')
 
-let personID
+let person
 
 var  newPerson = { 
     name: "nameTest",
@@ -81,17 +81,14 @@ describe ('Person controllers', function(){
 	  })
 	})
 
-
-
-
 	it('should create a person', function(done){
 		agent
 		.post('/person/create', newPerson)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(201)
 			
-			personID = JSON.parse(res.text)._id
-			console.log(personID)
+			person = JSON.parse(res.text)
+			// console.log(person)
 		})
 		.end(function(err, res){         
         if (err) return done.fail(err);
@@ -99,9 +96,9 @@ describe ('Person controllers', function(){
 	  })
 	})
 
-	it('should find a person', function(done){
+	it('should find a person and render their details page', function(done){
 		agent
-		.get('/person/details/' + personID)
+		.get('/person/details/' + person._id)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(200)
 		})
@@ -110,6 +107,44 @@ describe ('Person controllers', function(){
         done(err)
 	  })
 	})
+
+	it('should find a person and render their edit page', function(done){
+		agent
+		.get('/person/edit/' + person._id)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(200)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+	  })
+	})
+
+	// it('should find a person and update their details', function(done){
+	// 	agent
+	// 	.post('/person/update/' + person._id , person)
+	// 	.expect(function (res,req) {
+	// 		expect(res.statusCode).toEqual(200)
+	// 	})
+	// 	.end(function(err, res){         
+    //     if (err) return done.fail(err);
+    //     done(err)
+	//   })
+	// })
+
+	it('should find a person and delete their details', function(done){
+		agent
+		.get('/person/delete/' + person._id)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(302)
+		})
+		.end(function(err, res){         
+        if (err) return done.fail(err);
+        done(err)
+	  })
+	})
+
+
 
 });
 

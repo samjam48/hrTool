@@ -36,7 +36,7 @@ let PersonSchema = new Schema({
 PersonSchema.statics.all = function(cb){
     this.find( {}, function(err, result) {
             if (err) throw err;
-			cb(result);
+			cb(err, result);
     })
 }
 
@@ -51,37 +51,39 @@ PersonSchema.statics.all = function(cb){
 PersonSchema.statics.findItem = function(req, cb){
     this.findById( req , (err, result) =>{
         if (err) return console.log(err);
-        cb(result);
+        cb(err, result);
     })
 }
 
 
 // update is FREAKY. Look into way to only update a field if it is changed
 PersonSchema.statics.makeUpdate = function(req, cb){ 
-    this.update({_id: req.params.id},
-        {$set:{
-            name: req.body.name,
-            gender: req.body.gender,
-            location: req.body.location,
-            website: req.body.website,
-            socialmedia: {
-                twitter: req.body.twitter,
-                facebook: req.body.facebook,
-                linkedin: req.body.linkedin,
-                youtube: req.body.youtube,
-                instagram: req.body.instagram,
-            },
-            workingAt : [{ type: Schema.Types.ObjectId, ref: 'Company' }],
-            daysPerWeek: req.body.daysPerWeek,
-            role: req.body.role,
-            isMentor: req.body.isMentor,
-            menteeList: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-            skills: {
-                mainSkills: req.body.mainSkills,
-                skills: req.body.skills,
-            },
-            organizations: [{ type: Schema.Types.ObjectId, ref: 'Company' }]
-        }},
+    this.update(req
+    // ,
+    //     {$set:{
+    //         name: req.body.name,
+    //         gender: req.body.gender,
+    //         location: req.body.location,
+    //         website: req.body.website,
+    //         socialmedia: {
+    //             twitter: req.body.twitter,
+    //             facebook: req.body.facebook,
+    //             linkedin: req.body.linkedin,
+    //             youtube: req.body.youtube,
+    //             instagram: req.body.instagram,
+    //         },
+    //         workingAt : [{ type: Schema.Types.ObjectId, ref: 'Company' }],
+    //         daysPerWeek: req.body.daysPerWeek,
+    //         role: req.body.role,
+    //         isMentor: req.body.isMentor,
+    //         menteeList: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+    //         skills: {
+    //             mainSkills: req.body.mainSkills,
+    //             skills: req.body.skills,
+    //         },
+    //         organizations: [{ type: Schema.Types.ObjectId, ref: 'Company' }]
+    //     }}
+        ,
         (err, result) => {
             if (err) return console.log(err);
             cb(result);
