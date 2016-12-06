@@ -49,12 +49,14 @@ PersonSchema.statics.all = function(cb){
 // }
 
 PersonSchema.statics.findItem = function(req, cb){
-    this.findById( req.params.id , (err, result) =>{
+    this.findById( req , (err, result) =>{
         if (err) return console.log(err);
         cb(result);
     })
 }
 
+
+// update is FREAKY. Look into way to only update a field if it is changed
 PersonSchema.statics.makeUpdate = function(req, cb){ 
     this.update({_id: req.params.id},
         {$set:{
@@ -88,7 +90,7 @@ PersonSchema.statics.makeUpdate = function(req, cb){
 }
 
 PersonSchema.statics.delete = function(req, cb) {
-    this.remove({_id: req.params.id},
+    this.remove({_id: req},
         (err, result) => {
             if (err) return console.log(err);
             cb(result);

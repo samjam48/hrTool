@@ -10,13 +10,13 @@ const CompanySchema = require('../models/company');
 
 module.exports = router;
 
-router.get('/companies', (req, res) => {		        
+router.get('/', (req, res) => {		        
 	mongoose.model('Company').all(function(result){
 		res.render('companies.ejs', { Companies: result } )
 	})
 })
 
-router.get('/Company/details/:id', (req, res) => {	
+router.get('/details/:id', (req, res) => {	
 	
 	mongoose.model('Company').findCompany(req, function(result) {
 		// console.log(result)
@@ -29,13 +29,13 @@ router.get('/Company/details/:id', (req, res) => {
 
 
 // // REMOVE - Rendering done by React
-router.get('/Company/new', (req, res) => {           // render create form
+router.get('/new', (req, res) => {           // render create form
 	res.render('create.ejs');
 })
 
 
 
-router.post('/Company/create', (req, res) =>{	    
+router.post('/create', (req, res) =>{	    
 	
 	
 	let Company = mongoose.model('Company', CompanySchema);
@@ -83,11 +83,11 @@ router.post('/Company/create', (req, res) =>{
 
 
 
-		res.redirect('/companies');
+		res.redirect('/company');
 })
 
 //demo company
-router.get('/Company/create', (req, res) =>{	    
+router.get('/create', (req, res) =>{	    
 	
 	
 	let Company = mongoose.model('Company', CompanySchema);
@@ -131,18 +131,18 @@ router.get('/Company/create', (req, res) =>{
 	});
 
 
-	res.redirect('/companies');
+	res.redirect('/company');
 })
 
 
 
-router.get('/Company/edit/:id', (req, res) => {		// render edit Company page
+router.get('/edit/:id', (req, res) => {		// render edit Company page
 	mongoose.model('Company').findOne(req.params.id, function(result){
 		res.render('edit.ejs', {Company: result});
 	})
 })
 
-router.get('/Company/delete/:id', (req, res) => {	// delete Company
+router.get('/delete/:id', (req, res) => {	// delete Company
 	mongoose.model('Company').delete(req, function() {
 		res.redirect('/');
 	})
@@ -151,10 +151,10 @@ router.get('/Company/delete/:id', (req, res) => {	// delete Company
 
 
 // ---------------------- 'update' = SUSPECT - MAY HAVE ISSUES !!!!!!! -------------------------------------
-router.post('/Company/update/:id', (req, res) => {	// save changes to db
+router.post('/update/:id', (req, res) => {	// save changes to db
 	mongoose.model('Company').update(req, function() {
 		let id = req.body._id    // not working for some mental reason =[
-		res.redirect('/Company/details/'+ id);      	
+		res.redirect('/details/'+ id);      	
 		res.redirect('/');
 	})
 })
@@ -165,6 +165,6 @@ router.post('/Company/update/:id', (req, res) => {	// save changes to db
 //  ---------------------- 'removeAll' = TEMP FUNCTION NOT FOR DEPLOYEMENT!-------------------------------------
 router.get('/deleteCompanies', (req, res) => {		        // delete all Company and render home page
     mongoose.model('Company').removeAll(req, function(){
-		res.redirect('/Companies')
+		res.redirect('/Company')
 	})
 }) 

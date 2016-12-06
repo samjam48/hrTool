@@ -7,87 +7,93 @@ const PersonSchema = require("../models/person");
 module.exports = router
 
 
-	let Person = mongoose.model('Person', PersonSchema);
 
-router.get('/', (req, res) => {		                // render home page and all beavers
-	res.render('index.ejs')
+let Person = mongoose.model('Person', PersonSchema);
 
-})
+router.use('*', ((req, res, next) => {
+	req.newPerson = new Person ({
+		name: req.body.name,
+		gender: req.body.gender,
+		location: req.body.location,
+		website: req.body.website,
+		// socialmedia: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
+		//     twitter: req.body.twitter,
+		//     facebook: req.body.facebook,
+		//     linkedin: req.body.linkedin,
+		//     youtube: req.body.youtube,
+		//     instagram: req.body.instagram,
+		// },
+		workingAt : req.body.workingAt ,
+		daysPerWeek: req.body.daysPerWeek,
+		role: req.body.role,
+		isMentor: req.body.isMentor,
+		menteeList: req.body.menteeList,
+		// skills: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
+		//     mainSkills: req.body.mainSkills,
+		//     skills: req.body.skills,
+		// },
+		organizations: req.body.organizations
+	})
 
-router.get('/persons', (req, res) => {		        // render all Persons
+		console.log(req.newPerson)
+	next()
+
+} ))
+
+
+
+router.get('/', (req, res) => {		        // render all Persons
 	// res.render('persons.ejs')
 	Person.all( (result) => {
 		res.render('persons.ejs', { Persons: result } )
 	})
 })
 
-router.get('/Person/details/:id', (req, res) => {	// render Person info
-	Person.findItem( req , (result) => {
+router.get('/details/:id', (req, res) => {	// render Person info
+	Person.findItem( req.params.id , (result) => {
+		if (err) res.status(404).json();
+		res.status(200).json(data)
 		console.log(result)
 		res.render('details.ejs', {Person:result});
 	})
 })
 // // REMOVE - Rendering done by React
-router.get('/Person/new', (req, res) => {           // render create form
+router.get('/new', (req, res) => {           // render create form
 	res.render('create.ejs');
 })
 
 // CHANGE BORN DETAILS!!!!!
-router.post('/Person/create', (req, res) => {	    //create new Person object and add first sighting
+router.post('/create', (req, res) => {	    //create new Person object and add first sighting
 
-	var  newPerson = new Person ({
-            name: req.body.name,
-            gender: req.body.gender,
-            location: req.body.location,
-            website: req.body.website,
-            // socialmedia: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-            //     twitter: req.body.twitter,
-            //     facebook: req.body.facebook,
-            //     linkedin: req.body.linkedin,
-            //     youtube: req.body.youtube,
-            //     instagram: req.body.instagram,
-            // },
-            workingAt : req.body.workingAt ,
-            daysPerWeek: req.body.daysPerWeek,
-            role: req.body.role,
-            isMentor: req.body.isMentor,
-            menteeList: req.body.menteeList,
-            // skills: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-            //     mainSkills: req.body.mainSkills,
-            //     skills: req.body.skills,
-            // },
-            organizations: req.body.organizations
-        })
-	console.log(newPerson)
-	
-	newPerson.save( (err) => {
-		if (err) throw err;
+	req.newPerson.save( (err, data) => {
+		if (err) res.status(401).json();
+		res.status(201).json(data)
 		console.log('Person saved successfully from router!');
 	})
 	// CHANGE UX SO USER GOES TO PROFILE OF NEW PERSON AND HAS OPTION TO ADD ANOTHER
-	res.redirect('/persons')///details/'+ id);
+	//res.redirect('/persons')///details/'+ id);
 })
 
 
-router.get('/Person/edit/:id', (req, res) => {		// render edit Person page
-	Person.findItem(req, function(result){
+router.get('/edit/:id', (req, res) => {		// render edit Person page
+	Person.findItem(req.params.id , function(result){
 		console.log(result)
 		res.render('edit.ejs', {Person: result});
 	})
 })
 
-router.get('/Person/delete/:id', (req, res) => {	// delete Person
-	Person.delete(req, function() {
+router.get('/delete/:id', (req, res) => {	// delete Person
+	Person.delete(req.params.id , function() {
 		res.redirect('/');
 	})
 })
 
 
 
-router.post('/Person/update/:id', (req, res) => {	// save changes to db
-	Person.makeUpdate(req, function() {
+router.post('/update/:id', (req, res) => {	// save changes to db
+	Person.makeUpdate(req.params.id, function() {
 		let id = req.params.id    // not working for some mental reason =[
-		res.redirect('/Person/details/'+ id);      	
+		res.redirect('/details/'+ id);      	
 		// res.redirect('/');
 	})
 })
@@ -98,7 +104,7 @@ router.post('/Person/update/:id', (req, res) => {	// save changes to db
 //  ---------------------- 'removeAll' = TEMP FUNCTION NOT FOR DEPLOYEMENT!-------------------------------------
 router.get('/deletePersons', (req, res) => {		        // delete all person and render home page
     Person.removeAll(req, function(){
-		res.redirect('/persons')
+		res.redirect('/person')
 	})
 }) 
 
@@ -110,7 +116,7 @@ router.get('/deletePersons', (req, res) => {		        // delete all person and r
 
 
 
-router.get('/Person/create', (req, res) => {	    //create new Person object and add first sighting
+router.get('/create', (req, res) => {	    //create new Person object and add first sighting
 	
 
 	var  newPerson = new Person ({ 
@@ -146,7 +152,7 @@ router.get('/Person/create', (req, res) => {	    //create new Person object and 
 
 
 
-router.get('/Person/update/:id', (req, res) => {	// save changes to db
+router.get('/update/:id', (req, res) => {	// save changes to db
 	Person.makeUpdate(req, function() {
 		let id = req.params.id    // not working for some mental reason =[
 		res.redirect('/Person/details/'+ id);      	

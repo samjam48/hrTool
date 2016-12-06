@@ -14,18 +14,23 @@ app.use(bodyParser.json())
 app.set('view engine', 'ejs');  // res.render(view, locals);
 app.use(express.static('public'))
 
+
+app.get('/', (req, res) => {		                // render home page and all beavers
+	res.render('index.ejs')
+})
+
 // require all routes for beavers
 const personscontrollers = require('./controllers/persons')
-app.use(personscontrollers)
+app.use('/person', personscontrollers)
 
 const companiescontrollers = require('./controllers/companies')
-app.use(companiescontrollers)
+app.use('/company', companiescontrollers)
 
 
 
-app.get('reactapp', function(req, res){
-  res.render('reactapp')
-}) 
+// app.get('reactapp', function(req, res){
+//   res.render('reactapp')
+// }) 
 
 
 module.exports = app.listen(process.env.PORT || 3000, () => {    // only display connection port if succesfully connecting to db
