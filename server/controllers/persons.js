@@ -50,10 +50,12 @@ router.get('/', (req, res) => {		        // render all Persons
 })
 
 router.get('/details/:id', (req, res) => {	// render Person info
-	Person.findItem( req.params.id , (result) => {
-		if (err) res.status(404).json();
-		res.status(200).json(data)
-		console.log(result)
+	Person.findItem( req.params.id , ( err, result) => {
+		// if (err) res.status(404).json();
+		// res.status(200).json(data)
+		// console.log(result.status)
+		console.log('-------------------')
+		console.log(res.statusCode)
 		res.render('details.ejs', {Person:result});
 	})
 })

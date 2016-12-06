@@ -63,6 +63,9 @@ describe ('Routes load correctly', function(){
 	})
 });
 
+
+
+
 describe ('Person controllers', function(){
 
 	it('should render general persons pages', function(done){
@@ -78,11 +81,15 @@ describe ('Person controllers', function(){
 	  })
 	})
 
+
+
+
 	it('should create a person', function(done){
 		agent
 		.post('/person/create', newPerson)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(201)
+			
 			personID = JSON.parse(res.text)._id
 			console.log(personID)
 		})
@@ -97,8 +104,6 @@ describe ('Person controllers', function(){
 		.get('/person/details/' + personID)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(200)
-			// personID = JSON.parse(res.text)._id
-			// console.log(personID)
 		})
 		.end(function(err, res){         
         if (err) return done.fail(err);
@@ -108,20 +113,3 @@ describe ('Person controllers', function(){
 
 });
 
-
-
-describe ('GET companies.ejs:::', function(){
-
-	it('should render general companies page', function(done){
-		agent
-		.get('/company')
-		.expect('Content-Type', /html/)
-		.expect(function (res,req) {
-			expect(res.statusCode).toEqual(200)
-		})
-		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-  	})
-  })
-});
