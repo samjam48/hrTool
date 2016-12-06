@@ -144,7 +144,5 @@ describe ('Person controllers', function(){
 	  })
 	})
 
-
-
 });
 

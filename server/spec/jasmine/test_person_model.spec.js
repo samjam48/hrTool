@@ -64,10 +64,9 @@ let newCompany = {
 };
 
 
-// let Person = mongoose.model('Person', PersonSchema);
 
 describe('Person Model Test set', function(){
-    // var person_query
+
 
     it('check person saved has correct name', function(done){
 
@@ -82,6 +81,7 @@ describe('Person Model Test set', function(){
         }));
 
     })
+
 
     it('check findItem finds a correct person', function(done){
 
@@ -98,13 +98,13 @@ describe('Person Model Test set', function(){
 
     it('check find all finds all persons', function(done){
 
-        Person.all(personID, ((err, res) => {
+        Person.all((err, res) => {
 
-          expect(res.name).toEqual('nameTest')
+          expect(res).toEqual(jasmine.any(Array))
           expect(err).toBe(null)
 
           done();
-        }));
+        });
 
     })
 
@@ -112,55 +112,40 @@ describe('Person Model Test set', function(){
     it('check delete deletes specific person', function(done){
 
         Person.delete(personID, ((err, res) => {
-
-          expect(res.name).toEqual('nameTest')
           expect(err).toBe(null)
-
           done();
+
+          Person.findItem(personID, ((err, res) => {
+            expect(res).toBe(null)
+            done();
+          }));
+
         }));
 
     })
 
 
 
-    it('check company saved has correct name', function(done){
+    // it('check company saved has correct name', function(done){
 
-        newCompany.mentor = personID
+    //     newCompany.mentor = personID
 
-        mongoose.model('Company').create(newCompany, ((err, res) => {
+    //     mongoose.model('Company').create(newCompany, ((err, res) => {
 
-          expect(res.name).toEqual('Elium Academy')
-          expect(res.mentor[0]).toEqual(personID)
-          expect(err).toBe(null)
+    //       expect(res.name).toEqual('Elium Academy')
+    //       expect(res.mentor[0]).toEqual(personID)
+    //       expect(err).toBe(null)
 
-          companyID = res._id
-        //   console.log(companyID)
+    //       companyID = res._id
+    //     //   console.log(companyID)
 
-          done();
-        }));
+    //       done();
+    //     }));
 
-    })
+    // })
 
 })
 
-
-    // it('check findOne retrieves one persons details', function() {
-        
-    //     expect(person.findOne(58417a66ab2d3f1a6dc17882)).toEqual()
-    // })
-
-    // it('check "all" retrieves details of all persons', function() {
-    //     // expect(starship_query.next_page).toEqual('http://swapi.co/api/starships/?page=2')
-    // })
-
-
-
-
-// // all
-
-// // update
-
-// // delete
 
 
 
@@ -170,11 +155,3 @@ describe('Person Model Test set', function(){
 //     // workingAt
 //     // menteeList
 //     // organizations
-
-
-
-
-	// newPerson.save( (err) => {
-	// 	if (err) throw err;
-	// 	console.log('Person saved successfully from router!');
-	// })

@@ -40,20 +40,33 @@ PersonSchema.statics.all = function(cb){
     })
 }
 
-// // REDUNDANT METHOD
-// PersonSchema.statics.create = function(req, cb){
-//     return Person.save(req.body, (err, result) => {
-//         if (err) return console.log(err);
-//         cb(result);
-//     })
-// }
-
 PersonSchema.statics.findItem = function(req, cb){
     this.findById( req , (err, result) =>{
         if (err) return console.log(err);
         cb(err, result);
     })
 }
+
+
+PersonSchema.statics.delete = function(req, cb) {
+    this.remove({_id: req},
+        (err, result) => {
+            if (err) return console.log(err);
+            cb(err, result);
+        }
+    )
+}
+
+
+PersonSchema.statics.removeAll = function(req, cb) {
+    this.remove(
+        (err, result) => {
+            if (err) return console.log(err);
+            cb(result);
+        }
+    )
+}
+
 
 
 // update is FREAKY. Look into way to only update a field if it is changed
@@ -91,24 +104,6 @@ PersonSchema.statics.makeUpdate = function(req, cb){
     )
 }
 
-PersonSchema.statics.delete = function(req, cb) {
-    this.remove({_id: req},
-        (err, result) => {
-            if (err) return console.log(err);
-            cb(result);
-        }
-    )
-}
-
-
-PersonSchema.statics.removeAll = function(req, cb) {
-    this.remove(
-        (err, result) => {
-            if (err) return console.log(err);
-            cb(result);
-        }
-    )
-}
 
 
 module.exports = PersonSchema
