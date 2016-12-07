@@ -124,6 +124,17 @@ describe('Person Model Test set', function(){
 
     })
 
+})
+
+
+
+
+
+
+// // test company index reference
+//     // workingAt
+//     // menteeList
+//     // organizations
 
 
     // it('check company saved has correct name', function(done){
@@ -143,15 +154,3 @@ describe('Person Model Test set', function(){
     //     }));
 
     // })
-
-})
-
-
-
-
-
-
-// // test company index reference
-//     // workingAt
-//     // menteeList
-//     // organizations

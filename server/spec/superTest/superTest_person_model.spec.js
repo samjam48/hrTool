@@ -9,7 +9,7 @@ let agent = supertest.agent(app)
 
 let person
 
-var  newPerson = { 
+var newPerson = { 
     name: "nameTest",
     gender: "genderTest",
     location: "locationTest",
@@ -44,9 +44,9 @@ describe ('Routes load correctly', function(){
 			expect(res.statusCode).toEqual(200)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
   })
 
 	it('should render an error', function(done){
@@ -57,9 +57,9 @@ describe ('Routes load correctly', function(){
 			expect(res.statusCode).toEqual(404)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
 });
 
@@ -76,25 +76,29 @@ describe ('Person controllers', function(){
 			expect(res.statusCode).toEqual(200)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
 
+
 	it('should create a person', function(done){
+		console.log(newPerson)
 		agent
-		.post('/person/create', newPerson)
+		.post('/person/create')
+		.send(newPerson)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(201)
 			
 			person = JSON.parse(res.text)
-			// console.log(person)
+			console.log(person)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
+
 
 	it('should find a person and render their details page', function(done){
 		agent
@@ -103,10 +107,11 @@ describe ('Person controllers', function(){
 			expect(res.statusCode).toEqual(200)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
+
 
 	it('should find a person and render their edit page', function(done){
 		agent
@@ -115,22 +120,25 @@ describe ('Person controllers', function(){
 			expect(res.statusCode).toEqual(200)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
 
-	// it('should find a person and update their details', function(done){
-	// 	agent
-	// 	.post('/person/update/' + person._id , person)
-	// 	.expect(function (res,req) {
-	// 		expect(res.statusCode).toEqual(200)
-	// 	})
-	// 	.end(function(err, res){         
-    //     if (err) return done.fail(err);
-    //     done(err)
-	//   })
-	// })
+
+	it('should find a person and update their details', function(done){
+		agent
+		.post('/person/update/' + person._id)
+		.send(person)
+		.expect(function (res,req) {
+			expect(res.statusCode).toEqual(200)
+		})
+		.end(function(err, res){         
+			if (err) return done.fail(err);
+			done(err)
+		})
+	})
+	
 
 	it('should find a person and delete their details', function(done){
 		agent
@@ -139,9 +147,9 @@ describe ('Person controllers', function(){
 			expect(res.statusCode).toEqual(302)
 		})
 		.end(function(err, res){         
-        if (err) return done.fail(err);
-        done(err)
-	  })
+			if (err) return done.fail(err);
+			done(err)
+		})
 	})
 
 });
