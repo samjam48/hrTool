@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchPerson, deletePerson } from '../actions/index';
+import { fetchPerson, deletePerson } from '../../actions/index';
 import { Link } from 'react-router';
 
 class PersonShow extends Component {

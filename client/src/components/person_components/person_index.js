@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-import { fetchPersons } from '../actions/index';
+import { fetchPersons } from '../../actions/index';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 
 class PersonsIndex extends Component {
-    // constructor(props){
-    //     super(props);
-
-    // }
-
-    // componentWillMount() {
-    //     // this.props.fetchPersons();
-    // }
 
     renderPersons() {
 
@@ -20,8 +12,8 @@ class PersonsIndex extends Component {
             return (
                 <li className='list-group-item' key={Person.id} >
                     <Link to={"Person/"+ Person.id} >
-                        <h4 class="indexPerson" >{Person.name}</h4>
-                        <p class="indexPerson"  >{Person.location}</p>
+                        <h4 className="indexPerson" >{Person.name}</h4>
+                        <p className="indexPerson"  >{Person.location}</p>
                     </Link>
                 </li>
             )
@@ -45,6 +37,7 @@ class PersonsIndex extends Component {
     }
 }
 
+
 function mapStateToProps(state) {
     console.log('---------------------')
     console.log('current State = ')
@@ -56,10 +49,11 @@ function mapStateToProps(state) {
 import { bindActionCreators } from 'redux';
 
 function mapDispatchToProps(dispatch) {
+    console.log('dispatch')
     return bindActionCreators({ fetchPersons }, dispatch)
 }
 
-export default connect(null, {mapDispatchToProps})(PersonsIndex)
+export default connect(mapStateToProps, {mapDispatchToProps})(PersonsIndex)
 
 // _______________________ above == below _________________________
 
@@ -68,4 +62,4 @@ export default connect(null, {mapDispatchToProps})(PersonsIndex)
 // ______(furthermore)____ above == below _________________________
 
 
-export default connect(mapStateToProps, { fetchPersons })(PersonsIndex)
+// export default connect(mapStateToProps, { fetchPersons })(PersonsIndex)

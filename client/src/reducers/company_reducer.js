@@ -1,4 +1,4 @@
-import { FETCH_COMPANIES, FETCH_COMPANY, CREATE_COMPANY } from '../actions/index'
+import { FETCH_COMPANIES, FETCH_COMPANY, CREATE_COMPANY } from '../actions/types'
 
 
 

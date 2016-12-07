@@ -1,19 +1,4 @@
-import axios from 'axios';
-
-export const FETCH_PERSONS = 'FETCH_PERSONS';
-export const CREATE_PERSON = 'CREATE_PERSON';
-export const FETCH_PERSON = 'FETCH_PERSON';
-export const DELETE_PERSON = 'DELETE_PERSON';
-
-export const FETCH_COMPANIES = 'FETCH_COMPANIES';
-export const CREATE_COMPANY = 'CREATE_COMPANY';
-export const FETCH_COMPANY = 'FETCH_COMPANY';
-export const DELETE_COMPANY = 'DELETE_COMPANY';
-
-// const ROOT_URL = 'https://reduxblog.herokuapp.com/api';
-// const API_KEY = '?key=1q2w3esamsam';
-
-
+import { FETCH_PERSONS, CREATE_PERSON, FETCH_PERSON, DELETE_PERSON, UPDATE_PERSON } from '';
 
 export function fetchPersons() {
     // const request = axios.get(`${ROOT_URL}/Persons${API_KEY}`);
@@ -25,7 +10,7 @@ export function fetchPersons() {
 
     return {
         type: FETCH_PERSONS,
-        request
+        payload: request
     };
 }
 

@@ -1,4 +1,4 @@
-import { FETCH_PERSONS, FETCH_PERSON, CREATE_PERSON } from '../actions/index'
+import { FETCH_PERSONS, FETCH_PERSON, CREATE_PERSON, UPDATE_PERSON, DELETE_PERSON } from '../actions/types'
 
 
 
@@ -25,9 +25,12 @@ export default function(state = {}, action) {
         case FETCH_PERSON:
             return { ...state, Person: action.data }
         case FETCH_PERSONS:
+            console.log('---------fetch_persons------------')
             console.log(state)
             return { ...state, all: action.data }
-        // case EDIT_PERSON:
+        // case UPDATE_PERSON:
+        //     return { ...state, all: action.payload.data }
+        // case DELETE_PERSON:
         //     return { ...state, all: action.payload.data }
         default:
             return state

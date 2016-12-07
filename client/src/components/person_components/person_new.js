@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPerson } from '../actions/index';
+import { createPerson } from '../../actions/index';
 import { Link } from 'react-router';
 
 class PersonsNew extends Component {
@@ -28,19 +28,17 @@ class PersonsNew extends Component {
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
                 <h3>Create A New Person</h3>
 
-                <div className={`form-group ${name.touched && name.invalid ? 'has-danger' : ''}`} >
+                <div>
                     <label>Name</label>
-                    <input type="text" className="form-control" {...name} />
+                    <input type="text" className="form-control" {...name} /> 
                     <div className="text-help" >
-                        {name.touched ? name.error : ''}
                     </div>
                 </div>
 
-                <div className={`form-group ${location.touched && location.invalid ? 'has-danger' : ''}`} >
+                <div> 
                     <label>Location</label>
-                    <input type="text" className="form-control" {...location} />
+                    <input type="text" className="form-control" {...location} /> 
                     <div className="text-help" >
-                        {location.touched ? location.error : ''}
                     </div>
                 </div>
 
@@ -74,3 +72,36 @@ export default reduxForm({
     fields: ['name', 'location'],
     validate
 }, null, { createPerson})(PersonsNew);
+
+
+
+
+
+    //     const { fields: {name, location }, handleSubmit } = this.props;
+        
+    //     return (
+    //         <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+    //             <h3>Create A New Person</h3>
+
+    //             <div className={`form-group ${name.touched && name.invalid ? 'has-danger' : ''}`} >
+    //                 <label>Name</label>
+    //                 <input type="text" className="form-control" {...name} />
+    //                 <div className="text-help" >
+    //                     {name.touched ? name.error : ''}
+    //                 </div>
+    //             </div>
+
+    //             <div className={`form-group ${location.touched && location.invalid ? 'has-danger' : ''}`} >
+    //                 <label>Location</label>
+    //                 <input type="text" className="form-control" {...location} />
+    //                 <div className="text-help" >
+    //                     {location.touched ? location.error : ''}
+    //                 </div>
+    //             </div>
+
+
+    //             <button type="submit" className="btn btn-primary">Submit</button>
+    //             <Link to="/" className="btn btn-danger">Cancel</Link>
+    //         </form>
+    //     );
+    // }
