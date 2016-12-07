@@ -1,13 +1,13 @@
-const mongoose    = require('mongoose');
-var person = require('../../models/person')
-var company= require('../../models/company')
+const mongoose = require('mongoose');
 
-//const app = require("../../server.js") 
+const CompanySchema = require('../../models/company');
+// let person = require('../../models/person');
 
-var personID
-var companyID
+let Company = mongoose.model('Company', CompanySchema);
+let personID;
+let companyID;
 
-// var  newPerson = { 
+// let  newPerson = {
 //     name: "nameTest",
 //     gender: "genderTest",
 //     location: "locationTest",
@@ -48,7 +48,7 @@ var companyID
 //         locality : 'Brussels',
 //         city : 'Brussels',
 //         country : 'Belgium',
-//     }, 
+//     },
 //     status: 'Active',
 //     website: 'www.elium.academy',
 //     socialmedia: {
@@ -98,7 +98,7 @@ var companyID
 
 
     // it('check findOne retrieves one persons details', function() {
-        
+
     //     expect(person.findOne(58417a66ab2d3f1a6dc17882)).toEqual()
     // })
 

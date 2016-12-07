@@ -2,12 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-// const Mongo       = require('mongodb')
-// const ObjectID    = Mongo.ObjectID
-
-
 let CompanySchema = new Schema({
-   
     name: String,
     mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
     description: String,
@@ -50,57 +45,15 @@ CompanySchema.statics.all = function(cb){
 }
 
 CompanySchema.statics.findCompany = function(req, cb){
-    this.findById( req.params.id, (err, result) =>{
+    this.findById( req, (err, result) =>{
         if (err) return console.log(err);
         cb(result);
     })
 }
 
-CompanySchema.statics.update = function(req, cb){ 
-    this.Update({_id: req.params.id},
-        {$set:{
-            name : req.body.name,
-            mentor : req.body.mentor,
-            description : req.body.description,
-            // address :  {
-            //     streetName  : req.body String,
-            //     streetNumber  : req.body Number,
-            //     postCode  : req.body Number,
-            //     locality  : req.body String,
-            //     city  : req.body String,
-            //     country  : req.body String,
-            // }, 
-            status : req.body.status,
-            website : req.body.website,
-            // socialmedia : {
-            //     twitter : req.body String,
-            //     facebook : req.body String,
-            //     linkedin : req.body String,
-            //     youtube : req.body String,
-            //     instagram : req.body String
-            // },
-            spokePerson  : req.body.spokePerson,
-            // team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
-            sector : req.body.sector,
-            skills : req.body.skills,
-            onSite  : req.body.onSite,
-            news : req.body.news,
-            pitch : req.body.pitch,
-            lastUpdate  : req.body.lastUpdate,
-            // partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
-            fundRaised : req.body.fundRaised
-
-            
-        }},
-        (err, result) => {
-            if (err) return console.log(err);
-            cb(result);
-        }
-    )
-}
 
 CompanySchema.statics.delete = function(req, cb) {
-    this.remove({_id: req.params.id},
+    this.remove({_id: req},
         (err, result) => {
             if (err) return console.log(err);
             cb(result);
@@ -121,6 +74,48 @@ CompanySchema.statics.removeAll = function(req, cb) {
 
 
 
+// CompanySchema.statics.update = function(req, cb){ 
+//     this.update({_id: req.params.id},
+//         {$set:{
+//             name : req.body.name,
+//             mentor : req.body.mentor,
+//             description : req.body.description,
+//             // address :  {
+//             //     streetName  : req.body String,
+//             //     streetNumber  : req.body Number,
+//             //     postCode  : req.body Number,
+//             //     locality  : req.body String,
+//             //     city  : req.body String,
+//             //     country  : req.body String,
+//             // }, 
+//             status : req.body.status,
+//             website : req.body.website,
+//             // socialmedia : {
+//             //     twitter : req.body String,
+//             //     facebook : req.body String,
+//             //     linkedin : req.body String,
+//             //     youtube : req.body String,
+//             //     instagram : req.body String
+//             // },
+//             spokePerson  : req.body.spokePerson,
+//             // team : [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Person' }],
+//             sector : req.body.sector,
+//             skills : req.body.skills,
+//             onSite  : req.body.onSite,
+//             news : req.body.news,
+//             pitch : req.body.pitch,
+//             lastUpdate  : req.body.lastUpdate,
+//             // partners : req.body [{ type : req.body Schema.Types.ObjectId, ref : req.body 'Company' }],
+//             fundRaised : req.body.fundRaised
+
+            
+//         }},
+//         (err, result) => {
+//             if (err) return console.log(err);
+//             cb(result);
+//         }
+//     )
+// }
 
 
 let Company = mongoose.model('Company', CompanySchema);

@@ -17,7 +17,7 @@ router.use('*', ((req, res, next) => {
 		location: req.body.location,
 		website: req.body.website,
 		// socialmedia: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-		//     twitter: req.body.twitter,
+		//     twitter: req.body.twitter,z
 		//     facebook: req.body.facebook,
 		//     linkedin: req.body.linkedin,
 		//     youtube: req.body.youtube,
