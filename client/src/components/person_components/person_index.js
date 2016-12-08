@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { fetchPersons } from '../../actions/index';
+import { fetchPersons } from '../../actions/person_actions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 
 class PersonsIndex extends Component {
+    // componentWillMount() {
+    //     this.props.fetchPersons();
+    // }
 
     renderPersons() {
 
@@ -40,7 +43,7 @@ class PersonsIndex extends Component {
 
 function mapStateToProps(state) {
     console.log('---------------------')
-    console.log('current State = ')
+    console.log('persons index, mapstatetoprops, current State = ')
     console.log(state)
     return { Persons: state.Persons };
 }
@@ -49,11 +52,12 @@ function mapStateToProps(state) {
 import { bindActionCreators } from 'redux';
 
 function mapDispatchToProps(dispatch) {
-    console.log('dispatch')
+    console.log('persons index, mapdispatchtoprops, fetch persons = ')
+    console.log(fetchPersons)
     return bindActionCreators({ fetchPersons }, dispatch)
 }
 
-export default connect(mapStateToProps, {mapDispatchToProps})(PersonsIndex)
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsIndex)
 
 // _______________________ above == below _________________________
 

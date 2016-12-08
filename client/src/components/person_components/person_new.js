@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPerson } from '../../actions/index';
+import { createPerson } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 class PersonsNew extends Component {
@@ -15,17 +15,19 @@ class PersonsNew extends Component {
 
     // create the blog Person has been created, navigate the user to the index
     // we navigate by calling this.context.router.push with the new path
-    onSubmit(props) {
-        this.props.createPerson(props, () => this.context.router.push('/') );
+    handleSubmit(event) {
+        event.preventDefault()
+        // debugger
+        var formObj = {name: event.target[0].value, location: event.target[1].value}
+        this.props.dispatch(createPerson(formObj, () => this.context.router.push('/person') ));
     }
 
     render() {
-        // const  handleSubmit  = this.props.handleSubmit;    // ===  //const { handleSubmit } = this.props;
 
         const { fields: {name, location }, handleSubmit } = this.props;
         
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+            <form onSubmit={this.handleSubmit.bind(this)} >
                 <h3>Create A New Person</h3>
 
                 <div>
@@ -71,7 +73,7 @@ export default reduxForm({
     form: 'PersonsNewForm',
     fields: ['name', 'location'],
     validate
-}, null, { createPerson})(PersonsNew);
+})(PersonsNew);
 
 
 

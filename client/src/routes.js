@@ -7,12 +7,15 @@ import PersonNew   from './components/person_components/person_new';
 import PersonShow   from './components/person_components/person_show';
 import PersonEdit   from './components/person_components/person_edit';
 
+import CompanyIndex from './components/company_components/company_index';
+
 
 
 export default (
     <Route path='/' component={App} >
-        <IndexRoute component={PersonIndex} />
+        <Route path="person" component={PersonIndex} />
         <Route path="person/new" component={PersonNew}  />
+        <Route path="company" component={CompanyIndex} />
     </Route>
 )
 

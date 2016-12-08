@@ -1,4 +1,4 @@
-import { FETCH_COMPANIES, FETCH_COMPANY, CREATE_COMPANY } from '../actions/types'
+import { FETCH_COMPANIES, FETCH_COMPANY, CREATE_COMPANY } from '../actions/company_actions'
 
 
 
@@ -20,13 +20,7 @@ function newObjectKey (state){
     console.log(action.type)
     
     switch(action.type) {
-        case CREATE_COMPANY:
-            return { ...state, [newObjectKey(state)]:  action.data }
-        case FETCH_COMPANY:
-            return { ...state, COMPANY: action.data }
-        case FETCH_COMPANIES:
-            console.log(state)
-            return { ...state, all: action.data }
+
         // case EDIT_COMPANY:
         //     return { ...state, all: action.payload.data }
         default:

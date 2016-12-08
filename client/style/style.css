@@ -2,7 +2,7 @@ form a {
     margin-left: 10px;
 }
 
-button {
+button, .btn {
     margin: 10px !important;
 }
 

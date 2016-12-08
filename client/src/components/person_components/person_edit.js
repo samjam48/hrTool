@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { createPerson, fetchPerson, deletePerson } from '../../actions/index';
+import { createPerson, fetchPerson, deletePerson } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 // class editPerson extends Component {
