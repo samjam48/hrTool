@@ -11,7 +11,8 @@ module.exports = router
 let Person = mongoose.model('Person', PersonSchema);
 
 router.use('*', ((req, res, next) => {
-	req.newPerson = new Person ({
+
+	req.personData = {
 		name: req.body.name,
 		gender: req.body.gender,
 		location: req.body.location,
@@ -33,7 +34,9 @@ router.use('*', ((req, res, next) => {
 		//     skills: req.body.skills,
 		// },
 		organizations: req.body.organizations
-	})
+	}
+
+	req.newPerson = new Person (req.personData)
 
 	next()
 
@@ -57,19 +60,19 @@ router.get('/details/:id', (req, res) => {	// render Person info
 })
 
 // // REMOVE - Rendering done by React
-router.get('/new', (req, res) => {           // render create form
+router.get('/new', (req, res) => {          // render create form
 	res.render('create.ejs');
 })
 
 // CHANGE BORN DETAILS!!!!!
-router.post('/create', (req, res) => {	    //create new Person object and add first sighting
-
+router.post('/create', (req, res) => {	    // create new Person object and add first sighting
+	console.log(req.body)
 	req.newPerson.save( (err, data) => {
 		if (err) res.status(401).json();
 		res.status(201).json(data)
 	})
 	// CHANGE UX SO USER GOES TO PROFILE OF NEW PERSON AND HAS OPTION TO ADD ANOTHER
-	//res.redirect('/persons')///details/'+ id);
+	// res.redirect('/persons')///details/'+ id);
 })
 
 
@@ -91,11 +94,18 @@ router.get('/delete/:id', (req, res) => {	// delete Person
 
 
 router.post('/update/:id', (req, res) => {	// save changes to db
-	
-	Person.makeUpdate({_id: req.params.id}, req.newPerson , function() {
-		let id = req.params.id    // not working for some mental reason =[
-		res.redirect('/details/'+ id);      	
+	console.log(req.body)
+
+	Person.update({_id: req.params.id}, req.personData , (err, result) => {
+		// console.log(err)
+		if (err) res.status(400).json();
+		res.status(200).json(result)
+
+   	
 	})
+	// CHANGE UX SO USER GOES TO PROFILE OF UPDATED PERSON
+		// let id = req.params.id 
+		// res.redirect('/details/'+ id);   
 })
 
 

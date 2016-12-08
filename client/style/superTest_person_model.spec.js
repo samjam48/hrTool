@@ -85,7 +85,7 @@ describe ('Person controllers', function(){
 	it('should create a person', function(done){
 		console.log(newPerson)
 		agent
-		.post('/person/create')
+		.Person('/person/create')
 		.send(newPerson)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(201)
@@ -128,7 +128,7 @@ describe ('Person controllers', function(){
 
 	it('should find a person and update their details', function(done){
 		agent
-		.post('/person/update/' + person._id)
+		.Person('/person/update/' + person._id)
 		.send(person)
 		.expect(function (res,req) {
 			expect(res.statusCode).toEqual(200)

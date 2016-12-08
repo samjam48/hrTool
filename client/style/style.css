@@ -1,0 +1,22 @@
+form a {
+    margin-left: 10px;
+}
+
+button {
+    margin: 10px !important;
+}
+
+
+h1, h2, h3, h4, h5, h6, p, span, strong {
+    margin: 10px !important;
+    text-align: center;
+}
+
+h3, h6 {
+    margin: 40px !important;
+}
+
+
+div {
+    margin-top: 20px;
+}
