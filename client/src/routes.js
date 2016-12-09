@@ -14,7 +14,9 @@ import CompanyIndex from './components/company_components/company_index';
 export default (
     <Route path='/' component={App} >
         <Route path="person" component={PersonIndex} />
-        <Route path="person/new" component={PersonNew}  />
+        <Route path="person/new" component={PersonNew} />
+        <Route path="person/:id" component={PersonShow} />
+        <Route path="person/edit/:id" component={PersonEdit} />
         <Route path="company" component={CompanyIndex} />
     </Route>
 )

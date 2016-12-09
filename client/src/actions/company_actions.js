@@ -1,4 +1,3 @@
-export const FETCH_COMPANY   = 'FETCH_COMPANY';
 export const FETCH_COMPANIES = 'FETCH_COMPANIES';
 export const UPDATE_COMPANY  = 'UPDATE_COMPANY';
 export const CREATE_COMPANY  = 'CREATE_COMPANY';

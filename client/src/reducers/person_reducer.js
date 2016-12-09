@@ -1,9 +1,11 @@
-import { FETCH_PERSONS, FETCH_PERSON, CREATE_PERSON, UPDATE_PERSON, DELETE_PERSON } from '../actions/person_actions'
+import { FETCH_PERSONS, CREATE_PERSON, UPDATE_PERSON, DELETE_PERSON } from '../actions/person_actions'
 
 
 
 function newObjectKey (state){
-    return Object.keys(state).length
+    let num = Object.keys(state).length
+    let id = Object.keys(state)[num-1]
+    return parseInt(id) + 1
 }
 
 
@@ -20,19 +22,18 @@ export default function(state = {}, action) {
         case CREATE_PERSON:
             action.payload.id = newObjectKey(state)
             return { ...state, [newObjectKey(state)]: action.payload }
-        case FETCH_PERSON:
-            return { ...state, Person: action.payload }
-        case FETCH_PERSONS:
-            console.log('---------fetch_persons------------')
-            console.log(state)
-            return { ...state, all: action.payload }
-        // case UPDATE_PERSON:
-        //     return { ...state, all: action.payload.data }
-        // case DELETE_PERSON:
-        //     return { ...state, all: action.payload.data }
+        case UPDATE_PERSON:
+            return action.payload 
+        case DELETE_PERSON:
+            return action.payload
         default:
             return state
     }
 
     return state
 }
+
+        // case FETCH_PERSONS:
+        //     console.log('---------fetch_persons------------')
+        //     console.log(state)
+        //     return { ...state, all: action.payload }

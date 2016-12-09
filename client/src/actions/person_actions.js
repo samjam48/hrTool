@@ -1,4 +1,3 @@
-export const FETCH_PERSON  = 'FETCH_PERSON';
 export const FETCH_PERSONS = 'FETCH_PERSONS';
 export const CREATE_PERSON = 'CREATE_PERSON';
 export const UPDATE_PERSON = 'UPDATE_PERSON';
@@ -20,37 +19,49 @@ export function createPerson(data, cb) {
 }
 
 
+export function updatePerson(update, id, Persons, cb) {
+    // const request = axios.delete(`${ROOT_URL}/Persons/${id}${API_KEY}`);
 
-export function fetchPersons() {
-    // const request = axios.get(`${ROOT_URL}/Persons${API_KEY}`);
-    const request = state
-
-    console.log('---------------------')
-    console.log('fetchPersons() request = ')
-    console.log(request)
-
+    // console.log('---------------------')
+    // console.log('updatePersons() request = ')
+    // console.log(update)
+    // console.log(id)
+    let newState = (JSON.parse(JSON.stringify(Persons)))
+    // console.log(Persons)
+    newState[id].name = update.name
+    newState[id].location = update.location
+    // console.log(newState)
+    cb()
     return {
-        type: FETCH_PERSONS,
-        payload: request
+        type: UPDATE_PERSON,
+        payload: newState
     };
 }
 
-// export function fetchPerson(id) {
-//     // const request = axios.get(`${ROOT_URL}/Persons/${id}${API_KEY}`);
-//     const request = id;
 
-//     return {
-//         request
-//     };
-// }
+export function deletePerson(id, Persons, cb) {
+    // const request = axios.delete(`${ROOT_URL}/Persons/${id}${API_KEY}`);
 
-
+    // console.log('---------------------')
+    // console.log('deletePersons() request = ')
+    // console.log(Persons)
+    // console.log(id)
+    let newState = (JSON.parse(JSON.stringify(Persons)))
+    // console.log(Persons)
+    delete newState[id]
+    // console.log(newState)
+    cb()
+    return {
+        type: DELETE_PERSON,
+        payload: newState
+    };
+}
 
 
 
 // export function fetchPersons() {
 //     // const request = axios.get(`${ROOT_URL}/Persons${API_KEY}`);
-//     const request = []//state
+//     const request = state
 
 //     console.log('---------------------')
 //     console.log('fetchPersons() request = ')
@@ -61,27 +72,3 @@ export function fetchPersons() {
 //         payload: request
 //     };
 // }
-
-
-
-export function fetchPerson(id) {
-    // const request = axios.get(`${ROOT_URL}/Persons/${id}${API_KEY}`);
-    const request = id;
-
-    return {
-        type: FETCH_PERSON,
-        payload: request
-    };
-}
-
-
-export function deletePerson(id, cb) {
-    // const request = axios.delete(`${ROOT_URL}/Persons/${id}${API_KEY}`);
-    const request = id;
-
-    cb()
-    return {
-        type: DELETE_PERSON,
-        payload: request
-    };
-}

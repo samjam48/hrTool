@@ -1,108 +1,100 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { createPerson, fetchPerson, deletePerson } from '../../actions/person_actions';
+import { updatePerson } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
-// class editPerson extends Component {
-//     // constructor(props){
-//     //     super(props);
+class editPerson extends Component {
+
+    static contextTypes = {
+        router: PropTypes.object
+    };
 
 
-//     //     this.props.fetchPerson(this.props.params.id);
-//     //     console.log(this.props.title)
-//     //     this.state = { title: this.props.title, categories: '', content: ''}
-//     // }
-
-//     static contextTypes = {
-//         router: PropTypes.object
-//     };
-
-//     componentWillMount() {
-//         this.props.fetchPerson(this.props.params.id);
-//         // this.setState({ title: this.props.title })
-//     }
-
-//     onSubmit(props) {
-//         this.props.createPerson(props, 
-//             (this.props.deletePerson(this.props.params.id,
-//                 () => { this.context.router.push('/') }) ) );
-//     }
-
-
-//     render() {
-
-//         const { Person } = this.props;
-//         const { fields: { title, categories, content }, handleSubmit } = this.props;
-
-//         if (!Person) {
-//             return <div>Loading...</div>
-//         }
+    handleSubmit(event) {
+        event.preventDefault()
+        var formObj = {name: event.target[0].value, location: event.target[1].value}
         
-//         return (
-//             <div>
-//                 <div> 
-//                     <Link to="/">Back To Index</Link>
-//                 </div>
-
-//                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
-//                     <h3>Edit Person</h3>
-
-//                     <div className={`form-group ${name.touched && name.invalid ? 'has-danger' : ''}`} >
-//                         <label>Name</label>
-//                         <input type="text" className="form-control" {...name} />
-//                         <div className="text-help" >
-//                             {name.touched ? name.error : ''}
-//                         </div>
-//                     </div>
-
-//                     <div className={`form-group ${location.touched && location.invalid ? 'has-danger' : ''}`} >
-//                         <label>Location</label>
-//                         <input type="text" className="form-control" {...location} />
-//                         <div className="text-help" >
-//                             {location.touched ? location.error : ''}
-//                         </div>
-//                     </div>
+        this.props.updatePerson(formObj, this.props.Person.id, this.props.Persons, () => { this.context.router.push(`/person/${this.props.Person.id}`) }) 
+    }
 
 
-//                     <button type="submit" className="btn btn-primary">Submit</button>
-//                     <Link to={`/Persons/${Person.id}`} className="btn btn-danger">Cancel</Link>
-//                 </form>
+    render() {
+        console.log('edit person props')
+        console.log(this.props)
+        const { Person } = this.props;
+        // const { handleSubmit } = this.props;
 
-//             </div>
-//         )
-//     }
+        const { fields: { name, location }, handleSubmit } = this.props;
 
-//     // onInputChange(title) {
-//     //     this.setState({title});
-//     //     console.log(state)
-//     // }
-// }
+        if (!Person) {
+            return <div>Loading...</div>
+        }
+        
+        return (
+            <div>
+                <div> 
+                    <Link to="/person">Back To peeps</Link>
+                </div>
 
-// function mapStateToProps(state) {
-//     return { Person: state.Persons.Person }; 
-// }
+                <form onSubmit={this.handleSubmit.bind(this)} >
+                    <h3>Edit Person</h3>
 
-// function validate(values) {
-//   const errors = {};
+                    <div  >
+                        <label>Name</label>
+                        <input type="text" className="form-control" {...name} defaultValue={Person.name} />
+                        <div className="text-help" >
+                        </div>
+                    </div>
 
-//   if (!values.name) {
-//     errors.name = 'touch box to confirm value is correct';
-//   }
-//   if (!values.location) {
-//     errors.location = 'touch box to confirm value is correct';
-//   }
+                    <div  >
+                        <label>Location</label>
+                        <input type="text" className="form-control" {...location}  defaultValue={Person.location} />
+                        <div className="text-help" >
+                        </div>
+                    </div>
 
 
-//   return errors;
-// }
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to={`/person/${Person.id}`} className="btn btn-danger">Cancel</Link>
+                </form>
+
+            </div>
+        )
+    }
+
+    // onInputChange(title) {
+    //     this.setState({title});
+    //     console.log(state)
+    // }
+}
+
+function mapStateToProps(state, ownProps) {
+    console.log(state)
+    return { Person: state.Persons[ownProps.params.id], Persons: state.Persons}; 
+}
+
+function validate(values) {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = 'touch box to confirm value is correct';
+  }
+  if (!values.location) {
+    errors.location = 'touch box to confirm value is correct';
+  }
+
+  return errors;
+}
 
 
-// export default reduxForm({
-//   form: 'PersonsNewForm',
-//   fields: ['title', 'categories', 'content'],
-//   validate
-// }, mapStateToProps, { fetchPerson, createPerson, deletePerson })(editPerson);
+editPerson = reduxForm({
+  form: 'PersonsEditForm',
+  fields: ['name', 'location'],
+  validate
+})(editPerson)
+
+export default connect ( mapStateToProps, { updatePerson })(editPerson);
 
 
 
