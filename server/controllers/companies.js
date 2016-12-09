@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const CompanySchema = require('../models/company');
-
+let Company = require('../models/company');
 module.exports = router;
 
-let Company = mongooge.model('Company', CompanySchema);
+
 
 router.use('*', ((req, res, next) => {
 	req.newCompany = new Company ({
@@ -47,23 +46,18 @@ router.use('*', ((req, res, next) => {
 } ))
 
 router.get('/', (req, res) => {
-  Company.all((result) => {
+  mongoose.model('Company').all((result) => {
     res.render('companies.ejs', { Companies: result });
   });
 });
 
 router.get('/details/:id', (req, res) => {
-  Company.findCompany(req, (result) => {
+  mongoose.model('Company').findCompany(req.params.id, (err, result) => {
     res.render('companyDetails.ejs', { Company: result });
   });
 });
 
 
-
-// // REMOVE - Rendering done by React
-router.get('/new', (req, res) => {           // render create form
-  res.render('create.ejs');
-});
 
 
 
@@ -149,6 +143,11 @@ router.get('/create', (req, res) => {
     partners: [{ _id: '5841ca9478c7dc23808491a7' }],
     fundRaised: 800000,
   });
+
+// // REMOVE - Rendering done by React
+router.get('/new', (req, res) => {           // render create form
+  res.render('create.ejs');
+});
 
   newCompany.save((err) => {
     if (err) throw err;

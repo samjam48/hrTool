@@ -2,13 +2,13 @@
 const mongoose    = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const PersonSchema = require("../models/person");
+const Person = require("../models/person");
 // const Company = require("../models/company");
 module.exports = router
 
 
 
-let Person = mongoose.model('Person', PersonSchema);
+// let Person = mongoose.model('Person', PersonSchema);
 
 router.use('*', ((req, res, next) => {
 

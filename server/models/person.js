@@ -67,4 +67,4 @@ PersonSchema.statics.removeAll = function(req, cb) {
 }
 
 
-module.exports = PersonSchema
+module.exports = mongoose.model('Person', PersonSchema);
