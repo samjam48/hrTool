@@ -92,12 +92,11 @@ describe('Company Model Test set', function(){
     });
 
     it('should find the correct company', (done) => {
-
         mongoose.model('Company').findCompany(savedCompany._id, (err, res) => {
-          expect(err).toBeNull();
-          expect(res.name).toEqual(savedCompany.name);
-          expect(res.website).toEqual(savedCompany.website);
-          done();
+            expect(err).toBeNull();
+            expect(res.name).toEqual(savedCompany.name);
+            expect(res.website).toEqual(savedCompany.website);
+            done();
         });
     });
 

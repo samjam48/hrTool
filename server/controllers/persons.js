@@ -70,7 +70,7 @@ router.post('/create', (req, res) => {	    // create new Person object and add f
 	req.newPerson.save( (err, data) => {
 		if (err) res.status(401).json();
 		res.status(201).json(data)
-	})
+	}) 
 	// CHANGE UX SO USER GOES TO PROFILE OF NEW PERSON AND HAS OPTION TO ADD ANOTHER
 	// res.redirect('/persons')///details/'+ id);
 })
