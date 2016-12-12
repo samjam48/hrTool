@@ -1,31 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPerson } from '../../actions/index';
+import { createPerson } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 class PersonsNew extends Component {
     
     // get context from global router
-    // static declaration on the class
-    // gets 
     static contextTypes = {
         router: PropTypes.object
     };
 
-
-    // create the blog Person has been created, navigate the user to the index
+    // 
+    // after Person has been created, navigate the user to the index
     // we navigate by calling this.context.router.push with the new path
-    onSubmit(props) {
-        this.props.createPerson(props, () => this.context.router.push('/') );
+    handleSubmit(event) {
+
+        event.preventDefault() // stop default form submit stuff happening without our control
+        // debugger
+        // create object of input values (would be better to use redux form but causing issues...)
+        var formObj = {name: event.target[0].value, location: event.target[1].value}
+
+        // dispatch input object to createPersons object and call new route url as the callback
+        this.props.dispatch(createPerson(formObj, () => this.context.router.push('/person') ));
     }
 
     render() {
-        // const  handleSubmit  = this.props.handleSubmit;    // ===  //const { handleSubmit } = this.props;
 
         const { fields: {name, location }, handleSubmit } = this.props;
         
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+            <form onSubmit={this.handleSubmit.bind(this)} >
                 <h3>Create A New Person</h3>
 
                 <div>
@@ -44,7 +48,7 @@ class PersonsNew extends Component {
 
 
                 <button type="submit" className="btn btn-primary">Submit</button>
-                <Link to="/" className="btn btn-danger">Cancel</Link>
+                <Link to="/person" className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
@@ -71,7 +75,7 @@ export default reduxForm({
     form: 'PersonsNewForm',
     fields: ['name', 'location'],
     validate
-}, null, { createPerson})(PersonsNew);
+})(PersonsNew);
 
 
 
