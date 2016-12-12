@@ -4,8 +4,8 @@ const mongoose    = require('mongoose');
 	// online sandbox server =  'mongodb://user:password@ds119608.mlab.com:19608/hrtool'
     // offline server        =  ...
 
-// mongoose.connect('mongodb://user:password@ds119608.mlab.com:19608/hrtool')
-mongoose.connect('mongodb://user:password@ds052629.mlab.com:52629/hr-tool')
+mongoose.connect('mongodb://user:password@ds119608.mlab.com:19608/hrtool')
+// mongoose.connect('mongodb://user:password@ds052629.mlab.com:52629/hr-tool')
 var db = mongoose.connection;
 
 

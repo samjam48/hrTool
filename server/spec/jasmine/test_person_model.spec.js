@@ -85,7 +85,7 @@ describe('Person Model Test set', function(){
 
     it('check findItem finds a correct person', function(done){
 
-        Person.findItem(personID, ((err, res) => {
+        mongoose.model('Person').findItem(personID, ((err, res) => {
 
           expect(res.name).toEqual('nameTest')
           expect(err).toBe(null)
@@ -98,7 +98,7 @@ describe('Person Model Test set', function(){
 
     it('check find all finds all persons', function(done){
 
-        Person.all((err, res) => {
+        mongoose.model('Person').all((err, res) => {
 
           expect(res).toEqual(jasmine.any(Array))
           expect(err).toBe(null)
@@ -111,7 +111,7 @@ describe('Person Model Test set', function(){
 
     it('check delete deletes specific person', function(done){
 
-        Person.delete(personID, ((err, res) => {
+        mongoose.model('Person').delete(personID, ((err, res) => {
           expect(err).toBe(null)
           done();
 

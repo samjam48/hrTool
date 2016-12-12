@@ -46,7 +46,7 @@ router.use('*', ((req, res, next) => {
 
 router.get('/', (req, res) => {		        // render all Persons
 
-	Person.all( (err, result) => {
+	mongoose.model('Person').all( (err, result) => {
 		res.render('persons.ejs', { Persons: result } )
 	})
 })
@@ -54,7 +54,7 @@ router.get('/', (req, res) => {		        // render all Persons
 
 router.get('/details/:id', (req, res) => {	// render Person info
 
-	Person.findItem( req.params.id , ( err, result) => {
+	mongoose.model('Person').findItem( req.params.id , ( err, result) => {
 		res.render('details.ejs', {Person:result});
 	})
 })
@@ -78,7 +78,7 @@ router.post('/create', (req, res) => {	    // create new Person object and add f
 
 router.get('/edit/:id', (req, res) => {		// render edit Person page
 
-	Person.findItem(req.params.id , function(err, result){
+	mongoose.model('Person').findItem(req.params.id , function(err, result){
 		res.render('edit.ejs', {Person: result});
 	})
 })
@@ -86,7 +86,7 @@ router.get('/edit/:id', (req, res) => {		// render edit Person page
 
 router.get('/delete/:id', (req, res) => {	// delete Person
 
-	Person.delete(req.params.id , (err, result) => {
+	mongoose.model('Person').delete(req.params.id , (err, result) => {
 		res.redirect('/');
 	})
 })
@@ -113,7 +113,7 @@ router.post('/update/:id', (req, res) => {	// save changes to db
 
 //  ---------------------- 'removeAll' = TEMP FUNCTION NOT FOR DEPLOYEMENT!-------------------------------------
 router.get('/deletePersons', (req, res) => {		        // delete all person and render home page
-    Person.removeAll(req, function(){
+    mongoose.model('Person').removeAll(req, function(){
 		res.redirect('/person')
 	})
 }) 
