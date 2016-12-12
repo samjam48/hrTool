@@ -5,7 +5,7 @@ let Company = require('../models/company');
 module.exports = router;
 
 router.use('*', (req, res, next) => {
-    req.companyData = new Company ({
+    req.companyData = {
         name: req.body.name,
         mentor: req.body.mentor,
         description: req.body.description,
@@ -36,59 +36,59 @@ router.use('*', (req, res, next) => {
         lastUpdate: req.body.lastUpdate,
         partners: req.body.partners,
         fundRaised: req.body.fundRaised
-    })
-    req.newCompany = req.companyData;
+    }
+    req.newCompany = new Company (req.companyData);
     next()
 })
 
 
-router.get('/companies', (req, res) => {
+router.get('/', (req, res) => {
     mongoose.model('Company').all((err, result) => {
         res.render('companies.ejs', { Companies: result });
     });
 });
 
-router.get('/company/details/:id', (req, res) => {
+router.post('/create', (req, res) => {
+    req.newCompany.save((err, result) => {
+        // if (err) throw err;
+        if (err) res.status(401).json();
+        res.status(201).json(result);
+    });
+    // res.redirect('/company');
+});
+
+router.get('/details/:id', (req, res) => {
     mongoose.model('Company').findCompany(req.params.id, (err, result) => {
         res.render('companyDetails.ejs', { Company: result });
     });
 });
 
 
-router.post('/company/create', (req, res) => {
-    req.newCompany.save((err, result) => {
-        // if (err) throw err;
-        if (err) res.status(401).json();
-        res.status(201).json(result);
-    });
-    res.redirect('/companies');
-});
-
-
-router.get('/company/edit/:id', (req, res) => {		
+router.get('/edit/:id', (req, res) => {		
     mongoose.model('Company').findCompany(req.params.id, (err, result) => {
         res.render('editCompany.ejs', { Company: result });
     });
 });
 
-router.get('/company/delete/:id', (req, res) => {
-    mongoose.model('Company').delete(req.params.id, (err, result) => {
-        res.redirect('/companies');
-    });
-});
 
-
-router.post('/company/update/:id', (req, res) => {	
-    Company.findByIdAndUpdate({_id: req.params.id}, req.companyData , (err, result) => {
-		if (err) res.status(400).json();
+router.post('/update/:id', (req, res) => {	
+    Company.update({_id: req.params.id}, req.companyData , (err, result) => {
+        if (err) res.status(400).json();
 		res.status(200).json(result)
 	})
 });
 
 
-router.get('/deleteCompanies', (req, res) => {		        // delete all person and render home page
+router.get('/delete/:id', (req, res) => {
+    mongoose.model('Company').delete(req.params.id, (err, result) => {
+        res.redirect('/company');
+    });
+});
+
+
+router.get('/deleteCompanies', (req, res) => {		       
     mongoose.model('Company').removeAll((err, result) => {
-        res.redirect('/companies')
+        res.redirect('/company')
     });
 }) 
 
@@ -97,36 +97,36 @@ router.get('/deleteCompanies', (req, res) => {		        // delete all person and
 
 
 // demo company
-router.get('/create', (req, res) => {
-  const newCompany = new Company({
-    name: 'Elium Academy Router',
-		// mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-    description: 'Coding Bootcamp',
-    address: {
-    streetName: 'Science Road',
-    streetNumber: 23,
-    postCode: 1000,
-    locality: 'Brussels',
-    city: 'Brussels',
-    country: 'Belgium',
-  },
-    status: 'Active',
-    website: 'www.elium.academy',
-    socialmedia: {
-    twitter: 'twitter.co/elium-academy',
-    facebook: 'facebook.com/elium-academy',
-    linkedin: 'linkedin.com/elium-academy',
-    youtube: 'youtube.com/elium-academy',
-    instagram: 'instagr.am/elium-academy',
-  },
-		// spokePerson : { type: Schema.Types.ObjectId, ref: 'Person' },
-		// team: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-    sector: ['Full Stack', 'Growth Hack', 'Education', 'Bootcamp'],
-    skills: ['Web Developement', 'Entrepreneurship'],
-    onSite: true,
-    news: 'Raised 500.000 from the governement for giving quality education',
-    pitch: 'Become Full Stack Web Developer in 13 weeks!*',
-    lastUpdate: new Date('2016-12-25'),
-    partners: [{ _id: '5841ca9478c7dc23808491a7' }],
-    fundRaised: 800000,
-  });
+// router.get('/create', (req, res) => {
+//   const newCompany = new Company({
+//     name: 'Elium Academy Router',
+// 		// mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+//     description: 'Coding Bootcamp',
+//     address: {
+//     streetName: 'Science Road',
+//     streetNumber: 23,
+//     postCode: 1000,
+//     locality: 'Brussels',
+//     city: 'Brussels',
+//     country: 'Belgium',
+//   },
+//     status: 'Active',
+//     website: 'www.elium.academy',
+//     socialmedia: {
+//     twitter: 'twitter.co/elium-academy',
+//     facebook: 'facebook.com/elium-academy',
+//     linkedin: 'linkedin.com/elium-academy',
+//     youtube: 'youtube.com/elium-academy',
+//     instagram: 'instagr.am/elium-academy',
+//   },
+// 		// spokePerson : { type: Schema.Types.ObjectId, ref: 'Person' },
+// 		// team: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
+//     sector: ['Full Stack', 'Growth Hack', 'Education', 'Bootcamp'],
+//     skills: ['Web Developement', 'Entrepreneurship'],
+//     onSite: true,
+//     news: 'Raised 500.000 from the governement for giving quality education',
+//     pitch: 'Become Full Stack Web Developer in 13 weeks!*',
+//     lastUpdate: new Date('2016-12-25'),
+//     partners: [{ _id: '5841ca9478c7dc23808491a7' }],
+//     fundRaised: 800000,
+//   });
