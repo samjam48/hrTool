@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
-import { fetchPersons } from '../../actions/person_actions';
+import { fetchPersonsAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class PersonsIndex extends Component {
+    constructor(props) {
+        super(props);
+        console.log('constructor log')
+        console.log(this.props)
+        console.log(this.state)
+        this.props.dispatch( fetchPersonsAsync() )
+        // this.state = { Persons: this.props.Persons }
+    }
+
+    // shouldComponentUpdate(nextState, nextProps) {
+    //     console.log("shouldComponentUpdate")
+    //     console.log(nextState)
+    //     console.log(nextProps)
+    //     return this.props != nextProps
+    // }
+
+    componentWillUpdate(){
+
+        // this.props.dispatch( fetchPersons() )
+    }
+
+    componentWillReceiveProps(nextProps){    // update state with new data
+
+        // this.setState({ Persons: nextProps.Persons })
+    }
 
     renderPersons() {
 
@@ -48,15 +73,15 @@ function mapStateToProps(state) {
 
 
 
-// function mapDispatchToProps(dispatch) {
-//     console.log('persons index, mapdispatchtoprops, fetch persons = ')
-//     console.log(fetchPersons)
-//     return bindActionCreators({ fetchPersons }, dispatch)
-// }
+function mapDispatchToProps(dispatch) {
+    console.log('persons index, mapdispatchtoprops, fetch persons = ')
+    console.log(fetchPersonsAsync)
+    return bindActionCreators({ fetchPersonsAsync, dispatch }, dispatch)
+}
 
-// , mapDispatchToProps
+// 
 
-export default connect(mapStateToProps)(PersonsIndex)
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsIndex)
 
 // _______________________ above == below _________________________
 

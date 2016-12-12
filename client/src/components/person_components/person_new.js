@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPerson } from '../../actions/person_actions';
+import { createPersonAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 class PersonsNew extends Component {
@@ -21,7 +21,7 @@ class PersonsNew extends Component {
         var formObj = {name: event.target[0].value, location: event.target[1].value}
 
         // dispatch input object to createPersons object and call new route url as the callback
-        this.props.dispatch(createPerson(formObj, () => this.context.router.push('/person') ));
+        this.props.dispatch(createPersonAsync(formObj, () => this.context.router.push('/person') ));
     }
 
     render() {
