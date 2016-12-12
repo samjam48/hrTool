@@ -8,7 +8,7 @@ export default class App extends Component {
       <div>
             <div className="text-xs-right">
                 <Link to="person" className="btn btn-primary">
-                    People
+                    Peoples
                 </Link>
                 <Link to="company" className="btn btn-primary">
                     Companies
