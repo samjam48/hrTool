@@ -3,7 +3,7 @@ const PersonSchema = require("../../models/person");
 var company= require('../../models/company')
 
 
-let Person = mongoose.model('Person', PersonSchema);
+let Person = PersonSchema;
 var personID
 var companyID
 
