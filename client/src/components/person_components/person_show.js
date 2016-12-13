@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { deletePerson } from '../../actions/person_actions';
+import { deletePersonAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
@@ -17,7 +17,7 @@ class PersonShow extends Component {
   onDeleteClick() {
     console.log('delete clicked. state = ')
     console.log(this.props.state)
-    this.props.deletePerson(this.props.params.id, this.props.Persons, () => { this.context.router.push('/person') });
+    this.props.deletePersonAsync(this.props.params.id, () => { this.context.router.push('/person') });
   }
           // this.props.createPerson(props, () => this.context.router.push('/') );
   onEditClick() {
@@ -65,4 +65,4 @@ function mapStateToProps(state, ownProps) {
 }
 
 
-export default connect(mapStateToProps, { deletePerson })(PersonShow);
+export default connect(mapStateToProps, { deletePersonAsync })(PersonShow);

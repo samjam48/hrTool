@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Nav from './navbar/nav'
+import Header from './navbar/nav'
 import SwipeableViews from 'react-swipeable-views';
 
 export default class App extends Component {
@@ -8,7 +8,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {Nav}
+        <Header />
         <div className="text-xs-right">
             <Link to="person" className="btn btn-primary">
                 People

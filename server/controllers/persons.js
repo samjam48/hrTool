@@ -35,7 +35,9 @@ router.use('*', ((req, res, next) => {
 		// },
 		organizations: req.body.organizations
 	}
-
+	for( item in req.personData){
+		if( req.personData[item] == undefined ) req.personData[item] = '-'
+	}
 	req.newPerson = new Person (req.personData)
 
 	next()
@@ -47,47 +49,41 @@ router.use('*', ((req, res, next) => {
 router.get('/', (req, res) => {		        // render all Persons
 
 	mongoose.model('Person').all( (err, data) => {
-		// console.log(result)
 		console.log('fetch persons from db =======================')
 		console.log(data)
 		res.json(data)
-		// res.render('persons.ejs', { Persons: result } )
 	})
 })
 
 
-router.get('/details/:id', (req, res) => {	// render Person info
+// router.get('/details/:id', (req, res) => {	// render Person info
 
-	mongoose.model('Person').findItem( req.params.id , ( err, result) => {
-		res.render('details.ejs', {Person:result});
-	})
-})
+// 	mongoose.model('Person').findItem( req.params.id , ( err, result) => {
+// 		res.render('details.ejs', {Person:result});
+// 	})
+// })
 
 // // REMOVE - Rendering done by React
-router.get('/new', (req, res) => {          // render create form
-	res.render('create.ejs');
-})
+// router.get('/new', (req, res) => {          // render create form
+// 	res.render('create.ejs');
+// })
 
-// CHANGE BORN DETAILS!!!!!
 router.post('/create', (req, res) => {	    // create new Person object and add first sighting
 	console.log(req.body)
 	req.newPerson.save( (err, data) => {
 		if (err) res.status(401).json();
-		// res.status(201).json(data)
-		// res.send({message: 'person saved'})
 		res.json(data)
 	}) 
-	// CHANGE UX SO USER GOES TO PROFILE OF NEW PERSON AND HAS OPTION TO ADD ANOTHER
-	// res.redirect('/persons')///details/'+ id);
+
 })
 
 
-router.get('/edit/:id', (req, res) => {		// render edit Person page
+// router.get('/edit/:id', (req, res) => {		// render edit Person page
 
-	mongoose.model('Person').findItem(req.params.id , function(err, result){
-		res.render('edit.ejs', {Person: result});
-	})
-})
+// 	mongoose.model('Person').findItem(req.params.id , function(err, result){
+// 		res.render('edit.ejs', {Person: result});
+// 	})
+// })
 
 
 router.get('/delete/:id', (req, res) => {	// delete Person
@@ -100,18 +96,21 @@ router.get('/delete/:id', (req, res) => {	// delete Person
 
 
 router.post('/update/:id', (req, res) => {	// save changes to db
-	console.log(req.body)
 
-	Person.update({_id: req.params.id}, req.personData , (err, result) => {
-		// console.log(err)
-		if (err) res.status(400).json();
-		res.status(200).json(result)
+	console.log('update, ' +  req.params.id)
+	// console.log(req.params)
+	console.log(req.personData)
 
-   	
+	mongoose.model('Person').findItem(req.params.id , ( err, result) => {
+		console.log('findItem')
+		console.log(result)
+		result.name = req.personData.name
+		result.location = req.personData.location
+		result.save( ( err, edit) => {
+			res.json(edit) 
+		})
 	})
-	// CHANGE UX SO USER GOES TO PROFILE OF UPDATED PERSON
-		// let id = req.params.id 
-		// res.redirect('/details/'+ id);   
+
 })
 
 

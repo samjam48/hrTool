@@ -33,6 +33,7 @@
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.0.0",
     "react-motion": "^0.4.6",
+    "react-nav-bar": "^0.6.4",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
     "react-router-redux": "4.0.0",
