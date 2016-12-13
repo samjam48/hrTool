@@ -58,6 +58,9 @@ class PersonShow extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  console.log('state and ownProps')
+  console.log(state)
+  console.log(ownProps)
     return { Person: state.Persons[ownProps.params.id], Persons: state.Persons }; 
 }
 

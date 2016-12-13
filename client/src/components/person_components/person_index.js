@@ -1,42 +1,25 @@
 import React, { Component } from 'react';
-import { fetchPersonsAsync } from '../../actions/person_actions';
+// import { fetchPersonsAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class PersonsIndex extends Component {
-    constructor(props) {
-        super(props);
-        console.log('constructor log')
-        console.log(this.props)
-        console.log(this.state)
-        this.props.dispatch( fetchPersonsAsync() )
-        // this.state = { Persons: this.props.Persons }
-    }
-
-    // shouldComponentUpdate(nextState, nextProps) {
-    //     console.log("shouldComponentUpdate")
-    //     console.log(nextState)
-    //     console.log(nextProps)
-    //     return this.props != nextProps
+    // constructor(props) {
+    //     super(props);
+    //     // console.log('constructor log')
+    //     // console.log(this.props)
+    //     // console.log(this.state)
+    //     this.props.fetchPersonsAsync() 
     // }
 
-    componentWillUpdate(){
-
-        // this.props.dispatch( fetchPersons() )
-    }
-
-    componentWillReceiveProps(nextProps){    // update state with new data
-
-        // this.setState({ Persons: nextProps.Persons })
-    }
 
     renderPersons() {
 
         return Object.values(this.props.Persons).map( (Person) => {
             return (
-                <li className='list-group-item' key={Person.id} >
-                    <Link to={"Person/"+ Person.id} >
+                <li className='list-group-item' key={Person._id} >
+                    <Link to={"Person/"+ Person._id} >
                         <h4 className="indexPerson" >{Person.name}</h4>
                         <p className="indexPerson"  >{Person.location}</p>
                     </Link>
@@ -64,9 +47,9 @@ class PersonsIndex extends Component {
 
 
 function mapStateToProps(state) {
-    console.log('---------------------')
-    console.log('persons index, mapstatetoprops, current State = ')
-    console.log(state)
+    // console.log('---------------------')
+    // console.log('persons index, mapstatetoprops, current State = ')
+    // console.log(state)
     return { Persons: state.Persons };
 }
 
@@ -74,14 +57,14 @@ function mapStateToProps(state) {
 
 
 function mapDispatchToProps(dispatch) {
-    console.log('persons index, mapdispatchtoprops, fetch persons = ')
-    console.log(fetchPersonsAsync)
-    return bindActionCreators({ fetchPersonsAsync, dispatch }, dispatch)
+    // console.log('persons index, mapdispatchtoprops, fetch persons = ')
+    // console.log(fetchPersonsAsync)
+    return bindActionCreators({ fetchPersonsAsync }, dispatch)
 }
 
 // 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsIndex)
+export default connect(mapStateToProps)(PersonsIndex)
 
 // _______________________ above == below _________________________
 
