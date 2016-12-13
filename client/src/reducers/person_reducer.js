@@ -18,12 +18,14 @@ export default function(state = {}, action) {
     console.log('reducer action.payload = ')
     console.log(action.payload)
     
-    switch(action.type) {
+    switch(action.type) {      
+        case FETCH_PERSONS:
+            return action.payload
         case CREATE_PERSON:
             action.payload.id = newObjectKey(state)
             return { ...state, [newObjectKey(state)]: action.payload }
         case UPDATE_PERSON:
-            return action.payload 
+            return action.payload   
         case DELETE_PERSON:
             return action.payload
         default:

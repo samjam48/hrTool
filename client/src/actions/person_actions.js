@@ -1,20 +1,59 @@
+import axios from 'axios';
+import { browserHistory } from 'react-router';
+
 export const FETCH_PERSONS = 'FETCH_PERSONS';
 export const CREATE_PERSON = 'CREATE_PERSON';
 export const UPDATE_PERSON = 'UPDATE_PERSON';
 export const DELETE_PERSON = 'DELETE_PERSON';
+const ROOT_URL = 'http://localhost:3000'
+// import ReduxThunk from 'redux-thunk' 
 
 
-export function createPerson(data, cb) {
-    // const request = axios.Person(`${ROOT_URL}/Persons${API_KEY}`, props);
-    const request = data;
-    console.log('+++++++++++++++++++++++++++')
-    console.log('createPerson() request = ')
-    console.log(request)
 
-    cb();
+
+/*----------------------- Fetch Persons -----------------------*/
+
+export function fetchPersons(profiles) {
+    console.log(profiles)
+    return {
+        type: FETCH_PERSONS,
+        payload: profiles
+    };
+};
+
+export function fetchPersonsAsync() {
+    console.log("async fetch")
+    return dispatch => {
+        console.log("inside async fetch")
+        axios.get(`${ROOT_URL}/person`)
+          .then(function (response) {
+                dispatch(fetchPersons(response.data))
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
+}
+
+/*----------------------- Create Person -----------------------*/
+
+export function createPerson(data) {
     return {
         type: CREATE_PERSON,
-        payload: request
+        payload: data
+    };
+}
+
+export function createPersonAsync(data, cb) {
+    return dispatch => {
+        axios.post(`${ROOT_URL}/person/create`, data)
+          .then(function (response) {
+                dispatch(createPerson(response.data))
+                cb()
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     };
 }
 
@@ -59,16 +98,32 @@ export function deletePerson(id, Persons, cb) {
 
 
 
-// export function fetchPersons() {
-//     // const request = axios.get(`${ROOT_URL}/Persons${API_KEY}`);
-//     const request = state
-
-//     console.log('---------------------')
+// export function fetchPersonsAsync() {
+//     const request = axios.get(`${ROOT_URL}/person`);
+//     // const request = data;
+//     console.log('+++++++++++++++++++++++++++')
 //     console.log('fetchPersons() request = ')
 //     console.log(request)
 
+//     // cb();
 //     return {
 //         type: FETCH_PERSONS,
 //         payload: request
+//     };
+// }
+
+
+
+// export function createPerson(data, cb) {
+//     const request = axios.post(`${ROOT_URL}/person/create`, data);
+//     // const request = data;
+//     console.log('+++++++++++++++++++++++++++')
+//     console.log('createPerson() request = ')
+//     console.log(request)
+
+//     // cb();
+//     return {
+//         type: CREATE_PERSON,
+//         payload: request.then( (res) => {console.log(res); cb() } )
 //     };
 // }

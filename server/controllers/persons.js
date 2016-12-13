@@ -46,8 +46,12 @@ router.use('*', ((req, res, next) => {
 
 router.get('/', (req, res) => {		        // render all Persons
 
-	mongoose.model('Person').all( (err, result) => {
-		res.render('persons.ejs', { Persons: result } )
+	mongoose.model('Person').all( (err, data) => {
+		// console.log(result)
+		console.log('fetch persons from db =======================')
+		console.log(data)
+		res.json(data)
+		// res.render('persons.ejs', { Persons: result } )
 	})
 })
 
@@ -69,7 +73,9 @@ router.post('/create', (req, res) => {	    // create new Person object and add f
 	console.log(req.body)
 	req.newPerson.save( (err, data) => {
 		if (err) res.status(401).json();
-		res.status(201).json(data)
+		// res.status(201).json(data)
+		// res.send({message: 'person saved'})
+		res.json(data)
 	}) 
 	// CHANGE UX SO USER GOES TO PROFILE OF NEW PERSON AND HAS OPTION TO ADD ANOTHER
 	// res.redirect('/persons')///details/'+ id);
@@ -126,39 +132,39 @@ router.get('/deletePersons', (req, res) => {		        // delete all person and r
 
 
 
-router.get('/create', (req, res) => {	    //create new Person object and add first sighting
+// router.get('/create', (req, res) => {	    //create new Person object and add first sighting
 	
 
-	var  newPerson = new Person ({ 
-		name: "nameTest",
-		gender: "genderTest",
-		location: "locationTest",
-		website: "websiteTest",
-		socialmedia: {
-			twitter: "twitterTest",
-			facebook: "facebookTest",
-			linkedin: "linkedinTest",
-			youtube: "youtubeTest",
-			instagram: "instagramTest",
-		},
-		workingAt : [ '5822cab3eb4cdf1978019e43' ],
-		daysPerWeek: 2,
-		role:  "roleTest",
-		isMentor: true,
-		menteeList: [ '5841dc1141a35227b4f5f946', '5841d56c98d444260130602c' ],
-		skills: {
-			mainSkills: [ "mainSkillsTest", "mainSkillsTest", "mainSkillsTest"],
-			skills: [ "skillsTest", "skillsTest", "skillsTest", "skillsTest", "skillsTest"],
-		}
-	})
-// 	console.log(newPerson)
+// 	var  newPerson = new Person ({ 
+// 		name: "nameTest",
+// 		gender: "genderTest",
+// 		location: "locationTest",
+// 		website: "websiteTest",
+// 		socialmedia: {
+// 			twitter: "twitterTest",
+// 			facebook: "facebookTest",
+// 			linkedin: "linkedinTest",
+// 			youtube: "youtubeTest",
+// 			instagram: "instagramTest",
+// 		},
+// 		workingAt : [ '5822cab3eb4cdf1978019e43' ],
+// 		daysPerWeek: 2,
+// 		role:  "roleTest",
+// 		isMentor: true,
+// 		menteeList: [ '5841dc1141a35227b4f5f946', '5841d56c98d444260130602c' ],
+// 		skills: {
+// 			mainSkills: [ "mainSkillsTest", "mainSkillsTest", "mainSkillsTest"],
+// 			skills: [ "skillsTest", "skillsTest", "skillsTest", "skillsTest", "skillsTest"],
+// 		}
+// 	})
+// // 	console.log(newPerson)
 	
-	newPerson.save( (err) => {
-		if (err) throw err;
-		console.log('Person saved successfully from router!');
-	})
-	res.redirect('/person')///details/'+ id);
-})
+// 	newPerson.save( (err) => {
+// 		if (err) throw err;
+// 		console.log('Person saved successfully from router!');
+// 	})
+// 	res.redirect('/person')///details/'+ id);
+// })
 
 
 
