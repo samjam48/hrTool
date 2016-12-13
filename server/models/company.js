@@ -6,14 +6,7 @@ let CompanySchema = new Schema({
     name: String,
     mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
     description: String,
-    address: {
-        streetName : String,
-        streetNumber : Number,
-        postCode : Number,
-        locality : String,
-        city : String,
-        country : String,
-    }, 
+    location: String, 
     status: String,
     website: String,
     socialmedia: {

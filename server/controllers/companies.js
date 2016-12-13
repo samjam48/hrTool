@@ -9,14 +9,7 @@ router.use('*', (req, res, next) => {
         name: req.body.name,
         mentor: req.body.mentor,
         description: req.body.description,
-            // address :  {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-            //     streetName  : req.body String,
-            //     streetNumber  : req.body Number,
-            //     postCode  : req.body Number,
-            //     locality  : req.body String,
-            //     city  : req.body String,
-            //     country  : req.body String,
-            // },
+        location: req.body,
         status: req.body.status,
         website: req.body.website,
             // socialmedia : {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
@@ -50,7 +43,6 @@ router.get('/', (req, res) => {
 
 router.post('/create', (req, res) => {
     req.newCompany.save((err, result) => {
-        // if (err) throw err;
         if (err) res.status(401).json();
         res.status(201).json(result);
     });
@@ -92,41 +84,3 @@ router.get('/deleteCompanies', (req, res) => {
     });
 }) 
 
-
-
-
-
-// demo company
-// router.get('/create', (req, res) => {
-//   const newCompany = new Company({
-//     name: 'Elium Academy Router',
-// 		// mentor: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-//     description: 'Coding Bootcamp',
-//     address: {
-//     streetName: 'Science Road',
-//     streetNumber: 23,
-//     postCode: 1000,
-//     locality: 'Brussels',
-//     city: 'Brussels',
-//     country: 'Belgium',
-//   },
-//     status: 'Active',
-//     website: 'www.elium.academy',
-//     socialmedia: {
-//     twitter: 'twitter.co/elium-academy',
-//     facebook: 'facebook.com/elium-academy',
-//     linkedin: 'linkedin.com/elium-academy',
-//     youtube: 'youtube.com/elium-academy',
-//     instagram: 'instagr.am/elium-academy',
-//   },
-// 		// spokePerson : { type: Schema.Types.ObjectId, ref: 'Person' },
-// 		// team: [{ type: Schema.Types.ObjectId, ref: 'Person' }],
-//     sector: ['Full Stack', 'Growth Hack', 'Education', 'Bootcamp'],
-//     skills: ['Web Developement', 'Entrepreneurship'],
-//     onSite: true,
-//     news: 'Raised 500.000 from the governement for giving quality education',
-//     pitch: 'Become Full Stack Web Developer in 13 weeks!*',
-//     lastUpdate: new Date('2016-12-25'),
-//     partners: [{ _id: '5841ca9478c7dc23808491a7' }],
-//     fundRaised: 800000,
-//   });

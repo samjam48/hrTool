@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { updatePerson } from '../../actions/person_actions';
+import { updateCompany } from '../../actions/company_actions';
 import { Link } from 'react-router';
 
-class editPerson extends Component {
+class editCompany extends Component {
 
     static contextTypes = {
         router: PropTypes.object
@@ -15,50 +15,50 @@ class editPerson extends Component {
         event.preventDefault()
         var formObj = {name: event.target[0].value, location: event.target[1].value}
         
-        this.props.updatePerson(formObj, this.props.Person.id, this.props.Persons, () => { 
-            this.context.router.push(`/person/${this.props.Person.id}`) 
+        this.props.updateCompany(formObj, this.props.Company.id, this.props.Companies, () => { 
+            this.context.router.push(`/company/${this.props.Company.id}`) 
         }) 
     }
 
 
     render() {
-        console.log('edit person props')
+        console.log('edit company props')
         console.log(this.props)
-        const { Person } = this.props;
+        const { Company } = this.props;
         // const { handleSubmit } = this.props;
 
         const { fields: { name, location }, handleSubmit } = this.props;
 
-        if (!Person) {
+        if (!Company) {
             return <div>Loading...</div>
         }
         
         return (
             <div>
                 <div> 
-                    <Link to="/person">Back To peeps</Link>
+                    <Link to="/company">Back To Startups</Link>
                 </div>
 
                 <form onSubmit={this.handleSubmit.bind(this)} >
-                    <h3>Edit Person</h3>
+                    <h3>Edit Startup</h3>
 
-                    <div  >
+                    <div>
                         <label>Name</label>
-                        <input type="text" className="form-control" {...name} defaultValue={Person.name} />
+                        <input type="text" className="form-control" {...name} defaultValue={Company.name} />
                         <div className="text-help" >
                         </div>
                     </div>
 
                     <div  >
                         <label>Location</label>
-                        <input type="text" className="form-control" {...location}  defaultValue={Person.location} />
+                        <input type="text" className="form-control" {...location}  defaultValue={Company.location} />
                         <div className="text-help" >
                         </div>
                     </div>
 
 
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    <Link to={`/person/${Person.id}`} className="btn btn-danger">Cancel</Link>
+                    <Link to={`/company/${Company.id}`} className="btn btn-danger">Cancel</Link>
                 </form>
 
             </div>
@@ -73,7 +73,7 @@ class editPerson extends Component {
 
 function mapStateToProps(state, ownProps) {
     console.log(state)
-    return { Person: state.Persons[ownProps.params.id], Persons: state.Persons}; 
+    return { Company: state.Companies[ownProps.params.id], Companies: state.Companies}; 
 }
 
 function validate(values) {
@@ -90,13 +90,13 @@ function validate(values) {
 }
 
 
-editPerson = reduxForm({
-  form: 'PersonsEditForm',
+editCompany = reduxForm({
+  form: 'ComapniesEditForm',
   fields: ['name', 'location'],
   validate
-})(editPerson)
+})(editCompany)
 
-export default connect ( mapStateToProps, { updatePerson })(editPerson);
+export default connect ( mapStateToProps, { updateCompany })(editCompany);
 
 
 

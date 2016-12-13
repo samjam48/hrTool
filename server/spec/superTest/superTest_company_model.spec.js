@@ -9,14 +9,7 @@ let newCompany = {
 	name: 'Elium Academy',
 	// mentor: [ savedPerson._id ],
 	description: 'Coding Bootcamp',
-	address: {
-		streetName : 'Science Road',
-		streetNumber : 23,
-		postCode : 1000,
-		locality : 'Brussels',
-		city : 'Brussels',
-		country : 'Belgium',
-	},
+	location: 'KBC Start it',
 	status: 'Active',
 	website: 'www.elium.academy',
 	socialmedia: {
