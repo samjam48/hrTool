@@ -5,31 +5,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class PersonsIndex extends Component {
-    constructor(props) {
-        super(props);
-        console.log('constructor log')
-        console.log(this.props)
-        console.log(this.state)
-        this.props.dispatch( fetchPersonsAsync() )
-        // this.state = { Persons: this.props.Persons }
-    }
-
-    // shouldComponentUpdate(nextState, nextProps) {
-    //     console.log("shouldComponentUpdate")
-    //     console.log(nextState)
-    //     console.log(nextProps)
-    //     return this.props != nextProps
+    // constructor(props) {
+    //     super(props);
+    //     console.log('constructor log')
+    //     console.log(this.props)
+    //     console.log(this.state)
+    //     this.props.dispatch( fetchPersonsAsync() )
+    //     // this.state = { Persons: this.props.Persons }
     // }
 
-    componentWillUpdate(){
+    // // shouldComponentUpdate(nextState, nextProps) {
+    // //     console.log("shouldComponentUpdate")
+    // //     console.log(nextState)
+    // //     console.log(nextProps)
+    // //     return this.props != nextProps
+    // // }
 
-        // this.props.dispatch( fetchPersons() )
-    }
+    // componentWillUpdate(){
 
-    componentWillReceiveProps(nextProps){    // update state with new data
+    //     // this.props.dispatch( fetchPersons() )
+    // }
 
-        // this.setState({ Persons: nextProps.Persons })
-    }
+    // componentWillReceiveProps(nextProps){    // update state with new data
+
+    //     // this.setState({ Persons: nextProps.Persons })
+    // }
 
     renderPersons() {
 
@@ -76,7 +76,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     console.log('persons index, mapdispatchtoprops, fetch persons = ')
     console.log(fetchPersonsAsync)
-    return bindActionCreators({ fetchPersonsAsync, dispatch }, dispatch)
+    return bindActionCreators({ fetchPersonsAsync }, dispatch)
 }
 
 // 

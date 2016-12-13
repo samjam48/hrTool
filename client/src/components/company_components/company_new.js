@@ -206,7 +206,7 @@ class CompaniesNew extends Component {
                     </div>
                 </div>
 
-                //for lastUpdate add code at backend to get form sent date
+                {/*for lastUpdate add code at backend to get form sent date*/}
 
                 <div> 
                     <label>Partners</label>

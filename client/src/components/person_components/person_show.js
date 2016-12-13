@@ -39,6 +39,29 @@ class PersonShow extends Component {
         <Link to="/person">Back To people</Link>
         <h3>{Person.name}</h3>
         <h6>Location: {Person.location}</h6>
+        
+        <div>
+            {/*Most */}
+            <h4>Details</h4>
+            <p>Gender : {Person.location}</p>
+            <p>Website : {Person.website}</p>
+            <p>
+                Socialmedia
+                <ul>
+                    <li>Twitter : {Person.socialmedia.twitter}</li>
+                    <li>Facebook : {Person.socialmedia.facebook}</li>
+                    <li>Linkedin : {Person.socialmedia.linkedin}</li>
+                    <li>Youtube : {Person.socialmedia.youtube}</li>
+                    <li>Instagram : {Person.socialmedia.instagram}</li>
+                </ul>
+            </p>
+            <p>Working at : {Person.workingAt}</p>
+            <p>Days per week : {Person.daysPerWeek}</p>  {/*to remove ?*/} 
+            <p>Role : {Person.role}</p>
+            
+
+        </div>
+
         <Link to="/person">Back To people</Link>
         <button
           className="btn btn-danger pull-xs-right"

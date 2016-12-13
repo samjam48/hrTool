@@ -211,7 +211,25 @@ function validate(values) {
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 export default reduxForm({
     form: 'PersonsNewForm',
-    fields: ['name', 'location'],
+    fields: [
+        'name', 
+        'location',
+        'gender',    
+        'website',
+        'twitter',
+        'facebook',
+        'linkedin',
+        'youtube',
+        'instagram',
+        'workingAt',
+        'daysPerWeek',
+        'role',
+        'isMentor',
+        'menteeList',
+        'mainSkills',
+        'skills',
+        'organizations'
+        ],
     validate
 })(PersonsNew);
 
