@@ -22,8 +22,8 @@ export default function(state = {}, action) {
         case FETCH_PERSONS:
             return action.payload
         case CREATE_PERSON:
-            action.payload.id = newObjectKey(state)
-            return { ...state, [newObjectKey(state)]: action.payload }
+            let id = action.payload._id
+            return { ...state, [id]: action.payload }
         case UPDATE_PERSON:
             return action.payload   
         case DELETE_PERSON:

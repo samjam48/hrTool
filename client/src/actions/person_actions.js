@@ -9,7 +9,11 @@ const ROOT_URL = 'http://localhost:3000'
 // import ReduxThunk from 'redux-thunk' 
 
 
-
+// function newObjectKey (state){
+//     let num = Object.keys(state).length
+//     let id = Object.keys(state)[num-1]
+//     return parseInt(id) + 1
+// }
 
 /*----------------------- Fetch Persons -----------------------*/
 
@@ -27,7 +31,8 @@ export function fetchPersonsAsync() {
         console.log("inside async fetch")
         axios.get(`${ROOT_URL}/person`)
           .then(function (response) {
-                dispatch(fetchPersons(response.data))
+              response.data.forEach( (person) => dispatch(createPerson( person  ) ) )
+                
             })
             .catch(function(error) {
                 console.log(error);
@@ -44,7 +49,9 @@ export function createPerson(data) {
     };
 }
 
-export function createPersonAsync(data, cb) {
+export function createPersonAsync( data, cb) {
+    // data.id = newObjectKey(Persons);
+    console.log(data)
     return dispatch => {
         axios.post(`${ROOT_URL}/person/create`, data)
           .then(function (response) {

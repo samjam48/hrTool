@@ -15,9 +15,7 @@ class editPerson extends Component {
         event.preventDefault()
         var formObj = {name: event.target[0].value, location: event.target[1].value}
         
-        this.props.updatePerson(formObj, this.props.Person.id, this.props.Persons, () => { 
-            this.context.router.push(`/person/${this.props.Person.id}`) 
-        }) 
+        this.props.updatePerson(formObj, this.props.Person._id, this.props.Persons, () => { this.context.router.push(`/person/${this.props.Person._id}`) }) 
     }
 
 
@@ -58,7 +56,7 @@ class editPerson extends Component {
 
 
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    <Link to={`/person/${Person.id}`} className="btn btn-danger">Cancel</Link>
+                    <Link to={`/person/${Person._id}`} className="btn btn-danger">Cancel</Link>
                 </form>
 
             </div>

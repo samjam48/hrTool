@@ -1,9 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import { createPersonAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 class PersonsNew extends Component {
+    constructor(props) {
+        super(props);
+        // console.log('constructor log')
+        // console.log(this.props)
+        // console.log(this.state)
+        this.state = { id: newObjectKey(this.props.Persons) }
+    }
     
     // get context from global router
     static contextTypes = {
@@ -16,6 +24,8 @@ class PersonsNew extends Component {
     handleSubmit(event) {
 
         event.preventDefault() // stop default form submit stuff happening without our control
+
+
         // debugger
         // create object of input values (would be better to use redux form but causing issues...)
         var formObj = {
@@ -39,7 +49,7 @@ class PersonsNew extends Component {
         }
 
         // dispatch input object to createPersons object and call new route url as the callback
-        this.props.dispatch(createPersonAsync(formObj, () => this.context.router.push('/person') ));
+        this.props.dispatch( createPersonAsync( formObj, () => this.context.router.push('/person') ));
     }
 
     render() {
@@ -206,10 +216,13 @@ function validate(values) {
     return errors;
 }
 
+function mapStateToProps(state) {
+    return { Persons: state.Persons };
+}
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
-export default reduxForm({
+PersonsNew =  reduxForm({
     form: 'PersonsNewForm',
     fields: [
         'name', 
@@ -234,7 +247,18 @@ export default reduxForm({
 })(PersonsNew);
 
 
+PersonsNew = connect(mapStateToProps)(PersonsNew)
 
+export default PersonsNew
+
+
+
+
+function newObjectKey (state){
+    let num = Object.keys(state).length
+    let id = Object.keys(state)[num-1]
+    return parseInt(id) + 1
+}
 
 
     //     const { fields: {name, location }, handleSubmit } = this.props;
