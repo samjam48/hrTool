@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { updatePerson } from '../../actions/person_actions';
+import { updatePersonAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
 
 class editPerson extends Component {
@@ -14,10 +14,7 @@ class editPerson extends Component {
     handleSubmit(event) {
         event.preventDefault()
         var formObj = {name: event.target[0].value, location: event.target[1].value}
-        
-        this.props.updatePerson(formObj, this.props.Person._id, this.props.Persons, () => { 
-            this.context.router.push(`/person/${this.props.Person._id}`)
-        }) 
+        this.props.updatePersonAsync(formObj, this.props.Person._id, this.props.Persons, (id) => { this.context.router.push(`/person/${id}`) }) 
     }
 
 
@@ -96,7 +93,7 @@ editPerson = reduxForm({
   validate
 })(editPerson)
 
-export default connect ( mapStateToProps, { updatePerson })(editPerson);
+export default connect ( mapStateToProps, { updatePersonAsync })(editPerson);
 
 
 

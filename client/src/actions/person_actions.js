@@ -5,25 +5,12 @@ export const FETCH_PERSONS = 'FETCH_PERSONS';
 export const CREATE_PERSON = 'CREATE_PERSON';
 export const UPDATE_PERSON = 'UPDATE_PERSON';
 export const DELETE_PERSON = 'DELETE_PERSON';
+
 const ROOT_URL = 'http://localhost:3000'
-// import ReduxThunk from 'redux-thunk' 
 
 
-// function newObjectKey (state){
-//     let num = Object.keys(state).length
-//     let id = Object.keys(state)[num-1]
-//     return parseInt(id) + 1
-// }
 
 /*----------------------- Fetch Persons -----------------------*/
-
-// export function fetchPersons(profiles) {
-//     // console.log(profiles)
-//     return {
-//         type: FETCH_PERSONS,
-//         payload: profiles
-//     };
-// };
 
 export function fetchPersonsAsync() {
     // console.log("async fetch")
@@ -32,13 +19,13 @@ export function fetchPersonsAsync() {
         axios.get(`${ROOT_URL}/person`)
           .then(function (response) {
               response.data.forEach( (person) => dispatch(createPerson( person  ) ) )
-                
             })
             .catch(function(error) {
                 console.log(error);
             });
     };
 }
+
 
 /*----------------------- Create Person -----------------------*/
 
@@ -66,41 +53,59 @@ export function createPersonAsync( data, cb) {
 }
 
 
-export function updatePerson(update, id, Persons, cb) {
-    // const request = axios.delete(`${ROOT_URL}/Persons/${id}${API_KEY}`);
+/*----------------------- Update Person -----------------------*/
 
-    // console.log('---------------------')
-    // console.log('updatePersons() request = ')
-    // console.log(update)
-    // console.log(id)
+export function updatePerson(changes, id, Persons ) {
     let newState = (JSON.parse(JSON.stringify(Persons)))
-    // console.log(Persons)
-    newState[id].name = update.name
-    newState[id].location = update.location
-    // console.log(newState)
-    cb()
+    newState[id].name = changes.name
+    newState[id].location = changes.location
     return {
         type: UPDATE_PERSON,
         payload: newState
     };
 }
 
+export function updatePersonAsync(changes, id, Persons, cb) {
+    console.log("async update")
+    return dispatch => {
+        console.log("inside async update")
+        console.log(changes)
+        console.log(cb)
+        axios.post(`${ROOT_URL}/person/update/${id}`, changes)
+          .then(function (response) {
+              console.log('changes sent to db')
+              dispatch( updatePerson(changes, id, Persons) )
+              console.log('changes sent to state')
+              cb(id)
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
+}
 
-export function deletePerson(id, Persons, cb) {
-    // const request = axios.delete(`${ROOT_URL}/Persons/${id}${API_KEY}`);
 
-    // console.log('---------------------')
-    // console.log('deletePersons() request = ')
-    // console.log(Persons)
-    // console.log(id)
-    let newState = (JSON.parse(JSON.stringify(Persons)))
-    // console.log(Persons)
-    delete newState[id]
-    // console.log(newState)
-    cb()
+/*----------------------- Delete Person -----------------------*/
+
+export function deletePerson(id) {
     return {
         type: DELETE_PERSON,
-        payload: newState
+        payload: id
+    };
+}
+
+export function deletePersonAsync(id, cb) {
+    console.log("async delete")
+    return dispatch => {
+        console.log("inside async delete")
+        axios.get(`${ROOT_URL}/person/delete/${id}`)
+          .then(function (response) {
+              dispatch( deletePerson(id) )
+              cb()
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     };
 }
 
