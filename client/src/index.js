@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import promise      from 'redux-promise';
 import Thunk from 'redux-thunk'; 
 import { fetchPersonsAsync } from './actions/person_actions';
+import { fetchCompaniesAsync } from './actions/company_actions';
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, browserHistory }       from 'react-router';
@@ -26,6 +27,7 @@ const createStoreWithMiddleware = applyMiddleware( Thunk, promise )( createStore
 
 const store = createStoreWithMiddleware(reducers)
 store.dispatch( fetchPersonsAsync() )
+store.dispatch( fetchCompaniesAsync())
 // createStoreWithMiddleware(reducers, defaultState)
 ReactDOM.render(
   <Provider store={store} >
@@ -41,7 +43,7 @@ ReactDOM.render(
 
 // // EPIC DEBUGGIN THUNK AND STORE CODE
 
-//   console.log(Thunk)
+//   // console.log(Thunk)
 
 // const Thunk = (function createThunkMiddleware(extraArgument) {
   

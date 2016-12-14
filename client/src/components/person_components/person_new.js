@@ -73,6 +73,10 @@ class PersonsNew extends Component {
             skills,
             organizations
         }, handleSubmit } = this.props;
+
+        // console.log('person new render')
+
+        // console.log(this.props.Persons)
         
         return (
             <form onSubmit={this.handleSubmit.bind(this)} >
@@ -166,10 +170,24 @@ class PersonsNew extends Component {
                     </div>
                 </div>
 
-                <div> 
+
+                <div>
                     <label>Mentor</label>
-                    <input type="radio" name="mentor" value="true" className="form-control" {...isMentor} /> Yes
-                    <input type="radio" name="mentor" value="false" className="form-control" {...isMentor} /> No
+                    <select className="form-control" {...isMentor} >
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                    <div className="text-help" >
+                    </div>
+                </div>
+
+
+                <div>
+                    <label>Mentee List</label>
+                    <select className="form-control" {...menteeList} >
+                        {mentors(this.props.Persons)}
+                    
+                    </select>
                     <div className="text-help" >
                     </div>
                 </div>
@@ -217,7 +235,12 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-    return { Persons: state.Persons };
+    // console.log('map state = ')
+    // console.log(state)
+    return {
+        Persons: state.Persons,
+        Companies: state.Companies    
+    };
 }
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
@@ -261,6 +284,26 @@ function newObjectKey (state){
 }
 
 
+
+
+
+function mentors(Persons){
+    // console.log("mentors function")
+    // console.log(Persons)
+    let mentors = []
+    for(let person in Object.keys(Persons)){
+        // console.log("mentors loop")
+        // console.log(person)
+        // console.log(Persons)
+        mentors.push( <option value={Persons[Object.keys(Persons)[person]]._id}>{Persons[Object.keys(Persons)[person]].name}</option>)
+    }
+    //  // console.log("mentors")
+    // console.log(mentors)
+    return mentors
+}
+
+
+// if(person.isMentor == true) 
     //     const { fields: {name, location }, handleSubmit } = this.props;
         
     //     return (

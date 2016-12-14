@@ -15,13 +15,15 @@ class editPerson extends Component {
         event.preventDefault()
         var formObj = {name: event.target[0].value, location: event.target[1].value}
         
-        this.props.updatePerson(formObj, this.props.Person._id, this.props.Persons, () => { this.context.router.push(`/person/${this.props.Person._id}`) }) 
+        this.props.updatePerson(formObj, this.props.Person._id, this.props.Persons, () => { 
+            this.context.router.push(`/person/${this.props.Person._id}`)
+        }) 
     }
 
 
     render() {
-        console.log('edit person props')
-        console.log(this.props)
+        // console.log('edit person props')
+        // console.log(this.props)
         const { Person } = this.props;
         // const { handleSubmit } = this.props;
 
@@ -65,12 +67,12 @@ class editPerson extends Component {
 
     // onInputChange(title) {
     //     this.setState({title});
-    //     console.log(state)
+    //     // console.log(state)
     // }
 }
 
 function mapStateToProps(state, ownProps) {
-    console.log(state)
+    // console.log(state)
     return { Person: state.Persons[ownProps.params.id], Persons: state.Persons}; 
 }
 

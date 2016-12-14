@@ -1,4 +1,3 @@
-
 const mongoose    = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -17,23 +16,23 @@ router.use('*', ((req, res, next) => {
 		gender: req.body.gender,
 		location: req.body.location,
 		website: req.body.website,
-		// socialmedia: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-		//     twitter: req.body.twitter,z
-		//     facebook: req.body.facebook,
-		//     linkedin: req.body.linkedin,
-		//     youtube: req.body.youtube,
-		//     instagram: req.body.instagram,
-		// },
-		workingAt : req.body.workingAt ,
+		socialmedia: {			
+		    twitter: req.body.twitter,
+		    facebook: req.body.facebook,
+		    linkedin: req.body.linkedin,
+		    youtube: req.body.youtube,
+		    instagram: req.body.instagram,
+		},
+		// workingAt : [req.body.workingAt] ,
 		daysPerWeek: req.body.daysPerWeek,
 		role: req.body.role,
 		isMentor: req.body.isMentor,
-		menteeList: req.body.menteeList,
-		// skills: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-		//     mainSkills: req.body.mainSkills,
-		//     skills: req.body.skills,
-		// },
-		organizations: req.body.organizations
+		menteeList: [req.body.menteeList],
+		skills: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
+		    mainSkills: [req.body.mainSkills],
+		    skills: [req.body.skills],
+		},
+		// organizations: [req.body.organizations]
 	}
 
 	req.newPerson = new Person (req.personData)
@@ -48,8 +47,8 @@ router.get('/', (req, res) => {		        // render all Persons
 
 	mongoose.model('Person').all( (err, data) => {
 		// console.log(result)
-		console.log('fetch persons from db =======================')
-		console.log(data)
+		// console.log('fetch persons from db =======================')
+		// console.log(data)
 		res.json(data)
 		// res.render('persons.ejs', { Persons: result } )
 	})
@@ -70,8 +69,12 @@ router.get('/new', (req, res) => {          // render create form
 
 // CHANGE BORN DETAILS!!!!!
 router.post('/create', (req, res) => {	    // create new Person object and add first sighting
-	console.log(req.body)
+	// console.log(req.body)
+	// console.log(req.newPerson)
 	req.newPerson.save( (err, data) => {
+		// console.log(err)
+		// console.log('-----------')
+		// console.log(data)
 		if (err) res.status(401).json();
 		// res.status(201).json(data)
 		// res.send({message: 'person saved'})
@@ -100,7 +103,7 @@ router.get('/delete/:id', (req, res) => {	// delete Person
 
 
 router.post('/update/:id', (req, res) => {	// save changes to db
-	console.log(req.body)
+	// console.log(req.body)
 
 	Person.update({_id: req.params.id}, req.personData , (err, result) => {
 		// console.log(err)
@@ -157,11 +160,11 @@ router.get('/deletePersons', (req, res) => {		        // delete all person and r
 // 			skills: [ "skillsTest", "skillsTest", "skillsTest", "skillsTest", "skillsTest"],
 // 		}
 // 	})
-// // 	console.log(newPerson)
+// // 	// console.log(newPerson)
 	
 // 	newPerson.save( (err) => {
 // 		if (err) throw err;
-// 		console.log('Person saved successfully from router!');
+// 		// console.log('Person saved successfully from router!');
 // 	})
 // 	res.redirect('/person')///details/'+ id);
 // })

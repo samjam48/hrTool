@@ -1,14 +1,56 @@
-export const FETCH_COMPANIES = 'FETCH_COMPANIES';
-export const UPDATE_COMPANY  = 'UPDATE_COMPANY';
-export const CREATE_COMPANY  = 'CREATE_COMPANY';
-export const DELETE_COMPANY  = 'DELETE_COMPANY';
+import axios from 'axios';
+import { browserHistory } from 'react-router'
 
-export function createCompany(data, cb){
-    const request = data;
-    cb();
+export const FETCH_COMPANIES = 'FETCH_COMPANIES';
+export const CREATE_COMPANY  = 'CREATE_COMPANY';
+export const UPDATE_COMPANY  = 'UPDATE_COMPANY';
+export const DELETE_COMPANY  = 'DELETE_COMPANY';
+const ROOT_URL = 'http://localhost:3000'
+
+
+// export function fetchCompanies(profiles) {
+//     // console.log(profiles)
+//     return {
+//         type: FETCH_COMPANIES,
+//         payload: profiles
+//     };
+// };
+
+
+export function fetchCompaniesAsync() {
+    console.log("async fetch")
+    return dispatch => {
+        console.log("inside async fetch")
+        axios.get(`${ROOT_URL}/company`)
+          .then(function (response) {
+              console.log(response)
+              response.data.forEach( (company) => dispatch(createCompany( company  ) ) )
+                
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
+}
+
+
+export function createCompany(data){
     return {
         type: CREATE_COMPANY,
-        payload: request
+        payload: data
+    };
+}
+
+export function createCompanyAsync( data, cb) {
+    return dispatch => {
+        axios.post(`${ROOT_URL}/company/create`, data)
+          .then(function (response) {
+                dispatch(createCompany(response.data))
+                cb()
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     };
 }
 

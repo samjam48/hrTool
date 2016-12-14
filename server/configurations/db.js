@@ -23,7 +23,7 @@ db.once('open', function() {
 // console.log(dbCollection)
 
 // , function(err, database) {  // Use connect method to connect to the server
-// 	if (err) return console.log(err);
+// 	if (err) return // console.log(err);
 //     PersonDb = database.collection('persons');
 //     CompanyDb = database.collection('persons');
 // });

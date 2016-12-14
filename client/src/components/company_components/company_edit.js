@@ -22,8 +22,8 @@ class editCompany extends Component {
 
 
     render() {
-        console.log('edit company props')
-        console.log(this.props)
+        // console.log('edit company props')
+        // console.log(this.props)
         const { Company } = this.props;
         // const { handleSubmit } = this.props;
 
@@ -67,12 +67,12 @@ class editCompany extends Component {
 
     // onInputChange(title) {
     //     this.setState({title});
-    //     console.log(state)
+    //     // console.log(state)
     // }
 }
 
 function mapStateToProps(state, ownProps) {
-    console.log(state)
+    // console.log(state)
     return { Company: state.Companies[ownProps.params.id], Companies: state.Companies}; 
 }
 

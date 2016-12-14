@@ -11,12 +11,12 @@ function newObjectKey (state){
 
 
 export default function(state = {}, action) {
-    console.log('---------------------')
-    console.log('reducer action.type = ')
-    console.log(action.type)
-    console.log('---------------------')
-    console.log('reducer action.payload = ')
-    console.log(action.payload)
+    // console.log('---------------------')
+    // console.log('reducer action.type = ')
+    // console.log(action.type)
+    // console.log('---------------------')
+    // console.log('reducer action.payload = ')
+    // console.log(action.payload)
     
     switch(action.type) {      
         case FETCH_PERSONS:
@@ -36,6 +36,6 @@ export default function(state = {}, action) {
 }
 
         // case FETCH_PERSONS:
-        //     console.log('---------fetch_persons------------')
-        //     console.log(state)
+        //     // console.log('---------fetch_persons------------')
+        //     // console.log(state)
         //     return { ...state, all: action.payload }

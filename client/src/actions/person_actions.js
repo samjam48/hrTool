@@ -17,18 +17,18 @@ const ROOT_URL = 'http://localhost:3000'
 
 /*----------------------- Fetch Persons -----------------------*/
 
-export function fetchPersons(profiles) {
-    console.log(profiles)
-    return {
-        type: FETCH_PERSONS,
-        payload: profiles
-    };
-};
+// export function fetchPersons(profiles) {
+//     // console.log(profiles)
+//     return {
+//         type: FETCH_PERSONS,
+//         payload: profiles
+//     };
+// };
 
 export function fetchPersonsAsync() {
-    console.log("async fetch")
+    // console.log("async fetch")
     return dispatch => {
-        console.log("inside async fetch")
+        // console.log("inside async fetch")
         axios.get(`${ROOT_URL}/person`)
           .then(function (response) {
               response.data.forEach( (person) => dispatch(createPerson( person  ) ) )
@@ -51,10 +51,11 @@ export function createPerson(data) {
 
 export function createPersonAsync( data, cb) {
     // data.id = newObjectKey(Persons);
-    console.log(data)
+    // console.log(data)
     return dispatch => {
         axios.post(`${ROOT_URL}/person/create`, data)
           .then(function (response) {
+            //   // console.log('inside axios post then')
                 dispatch(createPerson(response.data))
                 cb()
           })
@@ -108,9 +109,9 @@ export function deletePerson(id, Persons, cb) {
 // export function fetchPersonsAsync() {
 //     const request = axios.get(`${ROOT_URL}/person`);
 //     // const request = data;
-//     console.log('+++++++++++++++++++++++++++')
-//     console.log('fetchPersons() request = ')
-//     console.log(request)
+//     // console.log('+++++++++++++++++++++++++++')
+//     // console.log('fetchPersons() request = ')
+//     // console.log(request)
 
 //     // cb();
 //     return {
@@ -124,13 +125,13 @@ export function deletePerson(id, Persons, cb) {
 // export function createPerson(data, cb) {
 //     const request = axios.post(`${ROOT_URL}/person/create`, data);
 //     // const request = data;
-//     console.log('+++++++++++++++++++++++++++')
-//     console.log('createPerson() request = ')
-//     console.log(request)
+//     // console.log('+++++++++++++++++++++++++++')
+//     // console.log('createPerson() request = ')
+//     // console.log(request)
 
 //     // cb();
 //     return {
 //         type: CREATE_PERSON,
-//         payload: request.then( (res) => {console.log(res); cb() } )
+//         payload: request.then( (res) => {// console.log(res); cb() } )
 //     };
 // }

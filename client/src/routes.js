@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App        from './components/app';
+
 import PersonIndex from './components/person_components/person_index';
 import PersonNew   from './components/person_components/person_new';
 import PersonShow   from './components/person_components/person_show';

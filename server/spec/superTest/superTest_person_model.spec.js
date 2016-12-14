@@ -83,7 +83,7 @@ describe ('Person controllers', function(){
 
 
 	it('should create a person', function(done){
-		console.log(newPerson)
+		// console.log(newPerson)
 		agent
 		.post('/person/create')
 		.send(newPerson)
@@ -91,7 +91,7 @@ describe ('Person controllers', function(){
 			expect(res.statusCode).toEqual(201)
 			
 			person = JSON.parse(res.text)
-			console.log(person)
+			// console.log(person)
 		})
 		.end(function(err, res){         
 			if (err) return done.fail(err);

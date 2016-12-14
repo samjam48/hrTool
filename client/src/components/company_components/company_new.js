@@ -1,17 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createCompany } from '../../actions/company_actions';
+import { connect } from 'react-redux';
+import { createCompanyAsync } from '../../actions/company_actions';
 import { Link } from 'react-router';
 
 class CompaniesNew extends Component {
     
+    constructor(props) {
+        super(props);
+        // console.log('constructor log')
+        // console.log(this.props)
+        // console.log(this.state)
+        this.state = { id: newObjectKey(this.props.Companies) }
+    }
+
     // get context from global router
     static contextTypes = {
         router: PropTypes.object
     };
 
     // 
-    // after Person has been created, navigate the user to the index
+    // after i has been created, navigate the user to the index
     // we navigate by calling this.context.router.push with the new path
     handleSubmit(event) {
 
@@ -42,8 +51,8 @@ class CompaniesNew extends Component {
             fundRaised: event.target[19].value
         }
 
-        // dispatch input object to createPersons object and call new route url as the callback
-        this.props.dispatch(createCompany(formObj, () => this.context.router.push('/company') ));
+        // dispatch input object to createCompanies object and call new route url as the callback
+        this.props.dispatch(createCompanyAsync(formObj, () => this.context.router.push('/company') ));
     }
 
     render() {
@@ -245,10 +254,72 @@ function validate(values) {
 }
 
 
+function mapStateToProps(state) {
+    // console.log('map state = ')
+    // console.log(state)
+    return {
+        Persons: state.Persons,
+        Companies: state.Companies    
+    };
+}
+
+
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
-export default reduxForm({
+ CompaniesNew = reduxForm({
     form: 'CompaniesNewForm',
-    fields: ['name', 'location'],
-    validate
+    fields: [
+        'name', 
+        'location',
+        'mentor',
+        'description',
+        'status', 
+        'website',
+        'twitter',
+        'facebook',
+        'linkedin',
+        'youtube',
+        'instagram',
+        'spokePerson',
+        'team',
+        'sector',
+        'skills',
+        'onSite',
+        'news',
+        'pitch',
+        'lastUpdate',
+        'partners',
+        'fundRaised'
+    ],validate
 })(CompaniesNew);
+
+CompaniesNew = connect(mapStateToProps)(CompaniesNew)
+
+export default CompaniesNew
+
+
+
+function newObjectKey (state){
+    let num = Object.keys(state).length
+    let id = Object.keys(state)[num-1]
+    return parseInt(id) + 1
+}
+
+
+
+
+
+function partners(Companies){
+    // console.log("partners function")
+    // console.log(Companies)
+    let partners = []
+    for(let i in Object.keys(Companies)){
+        // console.log("partners loop")
+        // console.log(i)
+        // console.log(Companies)
+        partners.push( <option value={Companies[Object.keys(Companies)[i]]._id}>{Companies[Object.keys(Companies)[i]].name}</option>)
+    }
+    //  // console.log("partners")
+    // console.log(partners)
+    return partners
+}

@@ -46,23 +46,23 @@ module.exports = app.listen(process.env.PORT || 3000, () => {    // only display
 // // editing
 // app.get('/beaver/edit/:id', (req, res) => {  // render edit form
 //   var id = ID(req.params.id);
-//   console.log(id);
+//   // console.log(id);
 //   db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('edit.ejs', {beaver: result});   // renders user onto the page
-//     console.log({beaver: result})
+//     // console.log({beaver: result})
 //   })
 // })
 
 // app.post('/beaver/update/:id', (req, res) => { // save edits to beaver
-//   console.log('Saving Changes');
+//   // console.log('Saving Changes');
 //   var id = ID(req.params.id);
 //   var obj = {name: req.body.name,
 //             health: req.body.health,
 //             location: req.body.location,
 //             birthdate: req.body.birthdate}
 //   db.collection('beavers').findOneAndUpdate({_id: id}, obj, function(err, beaver){
-//     if (err) console.log(err)
+//     if (err) // console.log(err)
 //   });
 //   res.redirect('/beaver/details/' + id)
 // })
@@ -84,26 +84,26 @@ module.exports = app.listen(process.env.PORT || 3000, () => {    // only display
 // app.get('/beaver/sightings/:name', (req, res) => { // show beaver journey log
 //   var _name = req.params.name;
 //   db.collection('sightings').findOne({name: _name}, (err, result) => {  
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('displayLog.ejs', {logger: result.logger, name:_name});   
-//     console.log({logger: result.logger})
-//     console.log(result);
+//     // console.log({logger: result.logger})
+//     // console.log(result);
 //   })
 // })
 
 // app.get('/beaver/sightings/newlog/:name', (req, res) => {  // render new sighting form
 //   var _name = req.params.name;
 //   db.collection('sightings').findOne({name: _name}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('newLog.ejs', {log: result});   // renders user onto the page
-//     console.log({log: result.logger})
+//     // console.log({log: result.logger})
 //   })
 // })
 
 // app.post('/beaver/sightings/newlog/:name', (req, res) =>{ // submit new sighting of beaver to 'sightings' log
-//   console.log('Saving new log')
+//   // console.log('Saving new log')
 //   var _name = req.params.name;
-//   console.log(_name);
+//   // console.log(_name);
 //   db.collection('sightings').findOneAndUpdate(
 //     {name: _name},
 //       {$push:
@@ -125,9 +125,9 @@ module.exports = app.listen(process.env.PORT || 3000, () => {    // only display
 //   var _name = req.params.name;
 //   var _ref = req.params.ref
 //   db.collection('sightings').findOne({name: _name}, (err, result) => {  
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('editLog.ejs', {logger: result.logger, name: _name, ref: _ref});
-//     console.log({logItem: result.logger[_ref]});
+//     // console.log({logItem: result.logger[_ref]});
 //   })
 // })
 
@@ -145,7 +145,7 @@ module.exports = app.listen(process.env.PORT || 3000, () => {    // only display
 //   // console.log("2nd log " + _log[_ref]);
 //   db.collection('sightings').findOneAndUpdate({name: _name },
 //      {$set:{logger: _log} } ,(err, result) => {
-//      if (err) return console.log(err)
+//      if (err) return // console.log(err)
 //     res.redirect('/beaver/sightings/' + _name);
 //   }) 
 // })
@@ -157,24 +157,24 @@ module.exports = app.listen(process.env.PORT || 3000, () => {    // only display
 // // relationships
 // app.get('/relationships', (req, res) => { // show relationships
 //   db.collection('relationships').find().toArray((err, result) =>{
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('relationships.ejs', {relations: result})  
 //   })
 // })
 
 // app.get('/newLove', (req, res) => { // render relationship input form
-//   console.log('rendering new love form');
+//   // console.log('rendering new love form');
 //   db.collection('beavers').find().toArray((err, result) =>{
-//     if (err) return console.log(err)
+//     if (err) return // console.log(err)
 //     res.render('loveform.ejs', {beavers: result})
 //   })
 // });
 
 // app.post('/newLove', (req, res) => { // register new relationship
-//   console.log('Saving new love to database...')
+//   // console.log('Saving new love to database...')
 //   db.collection('relationships').save(req.body, (err, result) =>{
-//     if (err) return console.log(err)
-//     console.log('New love saved to database')
+//     if (err) return // console.log(err)
+//     // console.log('New love saved to database')
 //     res.redirect('/relationships')
 //   });
 // });

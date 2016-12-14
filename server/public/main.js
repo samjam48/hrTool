@@ -60,7 +60,7 @@ function showMap(){
 //     if (res.ok) return res.json()
 //   }).
 //   then(data => {
-//     console.log(data)
+//     // console.log(data)
 //     window.location.reload()
 //   })
 // })
