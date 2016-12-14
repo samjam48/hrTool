@@ -13,12 +13,12 @@ class Header extends Component {
   <Navbar staticTop className="nav">
     <Navbar.Header className="navItem">
       <Navbar.Brand className="navItem">
-        <a href="#">Brand</a>
+        <Link to="/" >StartIt</Link>
       </Navbar.Brand>
       <Navbar.Toggle className="navItem">Search</Navbar.Toggle>
       <Nav>
-        <NavItem  className="navItem"eventKey={1} href="#">Link</NavItem>
-        <NavItem  className="navItem"eventKey={2} href="#">Link</NavItem>
+        <NavItem  className="navItem" eventKey={1} href="#">Link</NavItem>
+        <NavItem  className="navItem" eventKey={2} href="#">Link</NavItem>
         <Navbar.Text className="navItem">
             Signed in as: <Navbar.Link href="#">Admin</Navbar.Link>
         </Navbar.Text>
