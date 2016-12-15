@@ -66,12 +66,15 @@ router.get('/', (req, res) => {		        // render all Persons
 // })
 
 router.post('/create', (req, res) => {	    // create new Person object and add first sighting
-	// console.log(req.body)
-	// console.log(req.newPerson)
+	console.log(req.body)
+	console.log(req.newPerson)
+
 	req.newPerson.save( (err, data) => {
 		// console.log(err)
 		// console.log('-----------')
 		// console.log(data)
+		console.log(err)
+		console.log(data)
 		if (err) res.status(401).json();
 		res.json(data)
 	}) 

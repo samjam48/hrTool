@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { createPersonAsync } from '../../actions/person_actions';
 import { Link } from 'react-router';
@@ -21,35 +21,9 @@ class PersonsNew extends Component {
     // 
     // after Person has been created, navigate the user to the index
     // we navigate by calling this.context.router.push with the new path
-    handleSubmit(event) {
-
-        event.preventDefault() // stop default form submit stuff happening without our control
-
-
-        // debugger
-        // create object of input values (would be better to use redux form but causing issues...)
-        var formObj = {
-            name: event.target[0].value, 
-            location: event.target[1].value, 
-            gender: event.target[2].value,
-            website: event.target[3].value,
-            twitter: event.target[4].value,
-            facebook: event.target[5].value,
-            linkedin: event.target[6].value,
-            youtube: event.target[7].value,
-            instagram: event.target[8].value,
-            workingAt: event.target[9].value,
-            daysPerWeek: event.target[10].value,
-            role: event.target[11].value,
-            isMentor: event.target[12].value,
-            menteeList: event.target[13].value,
-            mainSkills: event.target[14].value,
-            skills: event.target[15].value,
-            organizations: event.target[16].value
-        }
-
+    handleFormSubmit(formProps) {
         // dispatch input object to createPersons object and call new route url as the callback
-        this.props.dispatch( createPersonAsync( formObj, () => this.context.router.push('/person') ));
+        this.props.dispatch( createPersonAsync( formProps, () => this.context.router.push('/person') ));
     }
 
     render() {
@@ -79,139 +53,47 @@ class PersonsNew extends Component {
         // console.log(this.props.Persons)
         
         return (
-            <form onSubmit={this.handleSubmit.bind(this)} >
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} >
                 <h3>Create A New Person</h3>
 
-                <div>
-                    <label>Name</label>
-                    <input type="text" className="form-control" {...name} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Location</label>
-                    <input type="text" className="form-control" {...location} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
+				<Field component={renderField} type="text" name="name" label="Name"/>
+				<Field component={renderField} type="text" name="location" label="Location"/>
                 <div>
                     <label>Gender</label>
-                    <select className="form-control" {...gender} >
+                    <Field name="gender" className="form-control" component="select"  {...gender} >
+                        <option></option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
-                    </select>
-                    <div className="text-help" >
-                    </div>
+                    </Field>
                 </div>
-
-                <div> 
-                    <label>Website</label>
-                    <input type="text" className="form-control" {...website} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Twitter</label>
-                    <input type="text" className="form-control" {...twitter} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Facebook</label>
-                    <input type="text" className="form-control" {...facebook} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Linkedin</label>
-                    <input type="text" className="form-control" {...linkedin} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Youtube</label>
-                    <input type="text" className="form-control" {...youtube} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Instagram</label>
-                    <input type="text" className="form-control" {...instagram} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Working at</label>
-                    <input type="text" className="form-control" {...workingAt} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Days per week</label>
-                    <input type="number" className="form-control" {...daysPerWeek} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Role</label>
-                    <input type="text" className="form-control" {...role} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-
+				<Field component={optionalField} type="text" name="website" label="Website"/>
+				<Field component={optionalField} type="text" name="twitter" label="Twitter"/>
+				<Field component={optionalField} type="text" name="facebook" label="facebook"/>
+				<Field component={optionalField} type="text" name="linkedin" label="LinkedIn"/>
+				<Field component={optionalField} type="text" name="youtube" label="Youtube"/>
+				<Field component={optionalField} type="text" name="instagram" label="Instagram"/>
+				<Field component={optionalField} type="text" name="workingAt" label="WorkingAt"/>
+				<Field component={optionalField} type="number" name="daysPerWeek" label="daysPerWeek"/>
+				<Field component={optionalField} type="text" name="role" label="Role"/>
                 <div>
                     <label>Mentor</label>
-                    <select className="form-control" {...isMentor} >
+                    <Field name="mentor" className="form-control" component="select"  {...isMentor} >
+                        <option></option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
-                    </select>
-                    <div className="text-help" >
-                    </div>
+                    </Field>
                 </div>
-
-
                 <div>
                     <label>Mentee List</label>
-                    <select className="form-control" {...menteeList} >
+                    <Field name="menteeList" className="form-control" component="select"  {...menteeList} >
+                        <option></option>
                         {mentors(this.props.Persons)}
-                    
-                    </select>
-                    <div className="text-help" >
-                    </div>
+                    </Field>
                 </div>
-
-                <div> 
-                    <label>Main Skills</label>
-                    <input type="text" className="form-control" {...mainSkills} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Skills</label>
-                    <input type="text" className="form-control" {...skills} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
-
-                <div> 
-                    <label>Organization</label>
-                    <input type="text" className="form-control" {...organizations} /> 
-                    <div className="text-help" >
-                    </div>
-                </div>
+				<Field component={optionalField} type="text" name="mainSkills" label="MainSkills"/>
+				<Field component={optionalField} type="text" name="skills" label="Skills"/>
+				<Field component={optionalField} type="text" name="organizations" label="Organizations"/>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/person" className="btn btn-danger">Cancel</Link>
@@ -232,6 +114,35 @@ function validate(values) {
     }
 
     return errors;
+}
+
+const renderField = ({ input, label, type, meta: { touched, error, invalid } }) => {
+    	//Construct form-group class depending on form state
+	const groupClass = touched ? (invalid ? 'form-group has-danger':'form-group has-success') : 'form-group';
+	//Construct form-control class depending on form state
+	const inputClass = touched ? (invalid ? 'form-control form-control-danger':'form-control form-control-success') : 'form-control';
+	
+	return (
+		<div className={groupClass}>
+			<label>{label}</label>
+			<input {...input} placeholder={label} type={type} className={inputClass} />
+			<div className="form-control-feedback">
+				{touched ? <span>{error}</span> : ''}
+			</div>
+		</div>
+	)
+}
+
+const optionalField = ({ input, label, type }) => {
+
+	return (
+		<div className="form-group">
+			<label>{label}</label>
+			<input {...input} placeholder={label} type={type} className="form-control" />
+			<div className="form-control-feedback">
+			</div>
+		</div>
+	)
 }
 
 function mapStateToProps(state) {

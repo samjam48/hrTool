@@ -1,34 +1,41 @@
 const express = require('express')
 const app = express()
+const http = require('http');
+const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient, assert = require('assert');
+const router = require('./controllers/router');
 const path = require('path');
 const cors = require('cors')
 const ID = require('mongodb').ObjectID
 
 require("./configurations/db.js")
 
-
+// App Setup
+app.use(morgan('combined'));
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))		// enables body parser
-app.use(bodyParser.json())
+app.use(bodyParser.json({ type: '*/*' }));
 
 app.set('view engine', 'ejs');  // res.render(view, locals);
 app.use(express.static('public'))
+router(app);
+
+// app.get('/', (req, res) => {		                // render home page and all beavers
+// 	res.render('index.ejs')
+// })
 
 
-app.get('/', (req, res) => {		                // render home page and all beavers
-	res.render('index.ejs')
-})
-
-// require all routes for beavers
 const personscontrollers = require('./controllers/persons')
 app.use('/person', personscontrollers)
 
 const companiescontrollers = require('./controllers/companies')
 app.use('/company', companiescontrollers)
 
-
+// const personscontrollers = require('./controllers/persons')
+// const companiescontrollers = require('./controllers/companies')
+//     app.use('/person', personscontrollers)
+//     app.use('/company', companiescontrollers)
 
 // app.get('reactapp', function(req, res){
 //   res.render('reactapp')
