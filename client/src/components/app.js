@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Header from './navbar/nav'
+import Header from './navbar/header'
 import SwipeableViews from 'react-swipeable-views';
 
 export default class App extends Component {
@@ -18,7 +18,16 @@ export default class App extends Component {
             </Link>
         </div>
         {this.props.children}
+          <Link to="/company/deleteCompanies" className="btn btn-primary">
+            remove all companies
+          </Link>
+
+          <Link to="/person/deletePersons" className="btn btn-primary">
+            remove all the people
+          </Link>
       </div>
     );
   }
 }
+
+

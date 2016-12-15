@@ -39,6 +39,8 @@ router.use('*', ((req, res, next) => {
 	}
 	req.newPerson = new Person(req.personData)
 
+
+
 	next()
 
 }))
@@ -66,13 +68,9 @@ router.get('/', (req, res) => {		        // render all Persons
 // })
 
 router.post('/create', (req, res) => {	    // create new Person object and add first sighting
-	// console.log(req.body)
-	// console.log(req.newPerson)
-	req.newPerson.save((err, data) => {
-		console.log('controller/persons/post/create:err--data')
-		console.log(err)
-		console.log('-----------')
-		console.log(data)
+	
+	
+	req.newPerson.save( (err, data) => {
 		if (err) res.status(401).json();
 		res.json(data)
 	})
@@ -99,11 +97,7 @@ router.get('/delete/:id', (req, res) => {	// delete Person
 
 router.post('/update/:id', (req, res) => {	// save changes to db
 
-	console.log('req body')
-	console.log(req.body)
-	console.log('----------------')
-	console.log('req new person')
-	console.log(req.newPerson)
+	
 
 	mongoose.model('Person').findItem(req.params.id, (err, result) => {
 		console.log('findItem')

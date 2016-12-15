@@ -2,7 +2,7 @@ import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Provider } from 'react-redux';
 import promise      from 'redux-promise';
-import Thunk from 'redux-thunk'; 
+import Thunk        from 'redux-thunk'; 
 import { fetchPersonsAsync } from './actions/person_actions';
 import { fetchCompaniesAsync } from './actions/company_actions';
 
@@ -13,6 +13,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import routes   from './routes';
 import reducers from './reducers';
+// import { AUTH_USER } from './actions/types';
 
 var defaultState = {
     Persons: {
@@ -24,11 +25,17 @@ var defaultState = {
   }
 
 const createStoreWithMiddleware = applyMiddleware( Thunk, promise )( createStore );
-
 const store = createStoreWithMiddleware(reducers)
 store.dispatch( fetchPersonsAsync() )
 store.dispatch( fetchCompaniesAsync())
-// createStoreWithMiddleware(reducers, defaultState)
+
+// const token = localStorage.getItem('token');
+// if (token) {
+//   // we need to update application state
+//   store.dispatch({ type: AUTH_USER });
+// }
+
+
 ReactDOM.render(
   <Provider store={store} >
     <Router history={browserHistory} routes={routes} />
