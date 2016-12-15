@@ -181,7 +181,7 @@ class PersonsNew extends Component {
                     </div>
                 </div>
 
-
+                {/*todo : add functionnality to show menteeList field only if is Mentor true*/}
                 <div>
                     <label>Mentee List</label>
                     <select className="form-control" {...menteeList} >

@@ -3,28 +3,28 @@ import { FETCH_PERSONS, CREATE_PERSON, UPDATE_PERSON, DELETE_PERSON } from '../a
 
 
 
-export default function(state = {}, action) {
+export default function (state = {}, action) {
     // console.log('---------------------')
     // console.log('reducer action.type = ')
     // console.log(action.type)
     // console.log('---------------------')
     // console.log('reducer action.payload = ')
     // console.log(action.payload)
-    
-    switch(action.type) {      
+
+    switch (action.type) {
         // case FETCH_PERSONS:
         //     return action.payload
         case CREATE_PERSON:
             let id = action.payload._id
             return { ...state, [id]: action.payload }
         case UPDATE_PERSON:
-            return action.payload   
+            return action.payload
         case DELETE_PERSON:
             let newState = (JSON.parse(JSON.stringify(state)))
             delete newState[action.payload]
             return newState
         default:
-            return state
+            // return state
     }
 
     return state

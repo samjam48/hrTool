@@ -1,29 +1,24 @@
-import { FETCH_COMPANIES, FETCH_COMPANY, CREATE_COMPANY } from '../actions/company_actions'
+import { FETCH_COMPANIES, CREATE_COMPANY, UPDATE_COMPANY, DELETE_COMPANY } from '../actions/company_actions'
 
 
 
-function newObjectKey (state){
+export default function (state = {}, action) {
 
-    var size = Object.keys(state).length
-    // console.log(size)
-    var id = Object.keys(state)[size-1]
-    // console.log(id)
-
-    return id + 1
-}
-
-
-
- export default function(state = {}, action) {
-    // console.log('---------------------')
-    // console.log('reducer action.type = ')
-    // console.log(action.type)
-    
-    switch(action.type) {
-
-        // case EDIT_COMPANY:
-        //     return { ...state, all: action.payload.data }
+    switch (action.type) {
+        // case FETCH_COMPANIES:
+        //     return action.payload
+        case CREATE_COMPANY:
+            let id = action.payload._id
+            return { ...state, [id]: action.payload }
+        case UPDATE_COMPANY:
+            return action.payload
+        case DELETE_COMPANY:
+            let newState = (JSON.parse(JSON.stringify(state)))
+            delete newState[action.payload]
+            return newState
         default:
-            return state
+        // return state
     }
+
+    return state
 }

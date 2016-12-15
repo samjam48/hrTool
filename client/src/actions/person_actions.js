@@ -68,14 +68,14 @@ export function updatePerson(changes, id, Persons ) {
 export function updatePersonAsync(changes, id, Persons, cb) {
     console.log("async update")
     return dispatch => {
-        console.log("inside async update")
-        console.log(changes)
-        console.log(cb)
+        // console.log("inside async update")
+        // console.log(changes)
+        // console.log(cb)
         axios.post(`${ROOT_URL}/person/update/${id}`, changes)
           .then(function (response) {
-              console.log('changes sent to db')
+            //   console.log('changes sent to db')
               dispatch( updatePerson(changes, id, Persons) )
-              console.log('changes sent to state')
+            //   console.log('changes sent to state')
               cb(id)
             })
             .catch(function(error) {
@@ -95,9 +95,9 @@ export function deletePerson(id) {
 }
 
 export function deletePersonAsync(id, cb) {
-    console.log("async delete")
+    // console.log("async delete")
     return dispatch => {
-        console.log("inside async delete")
+        // console.log("inside async delete")
         axios.get(`${ROOT_URL}/person/delete/${id}`)
           .then(function (response) {
               dispatch( deletePerson(id) )

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { updateCompany } from '../../actions/company_actions';
+import { updateCompanyAsync } from '../../actions/company_actions';
 import { Link } from 'react-router';
 
 class editCompany extends Component {
@@ -15,17 +15,14 @@ class editCompany extends Component {
         event.preventDefault()
         var formObj = {name: event.target[0].value, location: event.target[1].value}
         
-        this.props.updateCompany(formObj, this.props.Company.id, this.props.Companies, () => { 
+        this.props.updateCompanyAsync(formObj, this.props.Company.id, this.props.Companies, () => { 
             this.context.router.push(`/company/${this.props.Company.id}`) 
         }) 
     }
 
 
     render() {
-        // console.log('edit company props')
-        // console.log(this.props)
         const { Company } = this.props;
-        // const { handleSubmit } = this.props;
 
         const { fields: { name, location }, handleSubmit } = this.props;
 
@@ -65,10 +62,6 @@ class editCompany extends Component {
         )
     }
 
-    // onInputChange(title) {
-    //     this.setState({title});
-    //     // console.log(state)
-    // }
 }
 
 function mapStateToProps(state, ownProps) {
@@ -96,42 +89,4 @@ editCompany = reduxForm({
   validate
 })(editCompany)
 
-export default connect ( mapStateToProps, { updateCompany })(editCompany);
-
-
-
-                            // Value={this.state.title}
-                            // onChange={event => this.onInputChange( event.target.value) } />
-
-
-                    // <h3>{Person.title}</h3>
-                    // <h6>Categories: {Person.categories}</h6>
-                    // <p>{Person.content}</p>
-
-                // <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
-                //     <h3>Edit Person</h3>
-
-                //     <div className="form-group" >
-                //         <label>Title</label>
-                //         <input type="text" className="form-control" {...title} />
-                //         <div className="text-help" >
-                //         </div>
-                //     </div>
-
-                //     <div className="form-group" >
-                //         <label>Categories</label>
-                //         <input type="text" className="form-control" {...categories} />
-                //         <div className="text-help" >
-                //         </div>
-                //     </div>
-
-                //     <div className="form-group" >
-                //         <label>Content</label>
-                //         <textarea className="form-control" {...content} />
-                //         <div className="text-help" >
-                //         </div>
-                //     </div>
-
-                //     <button type="submit" className="btn btn-primary">Submit</button>
-                //     <Link to={`/Persons/${Person.id}`} className="btn btn-danger">Cancel</Link>
-                // </form>
+export default connect ( mapStateToProps, { updateCompanyAsync })(editCompany);

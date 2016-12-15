@@ -8,9 +8,6 @@ class CompaniesNew extends Component {
     
     constructor(props) {
         super(props);
-        // console.log('constructor log')
-        // console.log(this.props)
-        // console.log(this.state)
         this.state = { id: newObjectKey(this.props.Companies) }
     }
 
@@ -40,15 +37,15 @@ class CompaniesNew extends Component {
             youtube: event.target[9].value,
             instagram: event.target[10].value,
             spokePerson: event.target[11].value,
-            team: event.target[12].value,
-            sector: event.target[13].value,
-            skills: event.target[14].value,
-            onSite: event.target[15].value,
-            news: event.target[16].value,
-            pitch: event.target[17].value,
+            // team: event.target[12].value,
+            sector: event.target[12].value,
+            skills: event.target[13].value,
+            onSite: event.target[14].value,
+            news: event.target[15].value,
+            pitch: event.target[16].value,
             // lastUpdate: event.target[18].value,
-            partners: event.target[18].value,
-            fundRaised: event.target[19].value
+            partners: event.target[17].value,
+            fundRaised: event.target[18].value
         }
 
         // dispatch input object to createCompanies object and call new route url as the callback
@@ -70,7 +67,7 @@ class CompaniesNew extends Component {
             youtube,
             instagram,
             spokePerson,
-            team,
+            // team,
             sector,
             skills,
             onSite,
@@ -171,13 +168,14 @@ class CompaniesNew extends Component {
                     <div className="text-help" >
                     </div>
                 </div>
-
+                {/* todo :correct field, not number but team members 
                 <div> 
                     <label>Team</label>
                     <input type="number" className="form-control" {...team} /> 
                     <div className="text-help" >
                     </div>
-                </div>
+                </div>*/}
+
 
                 <div> 
                     <label>Sector</label>
@@ -193,10 +191,12 @@ class CompaniesNew extends Component {
                     </div>
                 </div>
 
-                <div> 
+                <div>
                     <label>On site</label>
-                    <input type="radio" name="onSite" value="true" className="form-control" {...onSite} /> Yes
-                    <input type="radio" name="onSite" value="false" className="form-control" {...onSite} /> No
+                    <select className="form-control" {...onSite} >
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
                     <div className="text-help" >
                     </div>
                 </div>
@@ -217,9 +217,12 @@ class CompaniesNew extends Component {
 
                 {/*for lastUpdate add code at backend to get form sent date*/}
 
-                <div> 
+
+                <div>
                     <label>Partners</label>
-                    <input type="text" className="form-control" {...partners} /> 
+                    <select className="form-control" {...partners} >
+                        {getPartnersList(this.props.Companies)}
+                    </select>
                     <div className="text-help" >
                     </div>
                 </div>
@@ -255,8 +258,6 @@ function validate(values) {
 
 
 function mapStateToProps(state) {
-    // console.log('map state = ')
-    // console.log(state)
     return {
         Persons: state.Persons,
         Companies: state.Companies    
@@ -309,17 +310,10 @@ function newObjectKey (state){
 
 
 
-function partners(Companies){
-    // console.log("partners function")
-    // console.log(Companies)
+function getPartnersList(Companies){
     let partners = []
     for(let i in Object.keys(Companies)){
-        // console.log("partners loop")
-        // console.log(i)
-        // console.log(Companies)
         partners.push( <option value={Companies[Object.keys(Companies)[i]]._id}>{Companies[Object.keys(Companies)[i]].name}</option>)
     }
-    //  // console.log("partners")
-    // console.log(partners)
     return partners
 }

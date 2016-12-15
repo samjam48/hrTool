@@ -15,7 +15,9 @@ class PersonShow extends Component {
 
 
   onDeleteClick() {
-    this.props.deletePersonAsync(this.props.params.id, () => { this.context.router.push('/person') });
+    this.props.deletePersonAsync(this.props.params.id, () => { 
+        this.context.router.push('/person') 
+    });
   }
           // this.props.createPerson(props, () => this.context.router.push('/') );
   onEditClick() {
