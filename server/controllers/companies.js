@@ -7,28 +7,28 @@ module.exports = router;
 router.use('*', (req, res, next) => {
     req.companyData = {
         name: req.body.name,
-        // mentor: req.body.mentor,
-        // description: req.body.description,
+        mentor: req.body.mentor,
+        description: req.body.description,
         location: req.body.location,
-        // status: req.body.status,
-        // website: req.body.website,
-        // socialmedia: {
-        //     twitter: req.body.twitter,
-        //     facebook: req.body.facebook,
-        //     linkedin: req.body.linkedin,
-        //     youtube: req.body.youtube,
-        //     instagram: req.body.instagram
-        // },
-        // spokePerson: req.body.spokePerson,
-        // team: req.body.team,
-        // sector: [req.body.sector],
-        // skills: [req.body.skills],
-        // onSite: req.body.onSite,
-        // news: req.body.news,
-        // pitch: req.body.pitch,
-        // lastUpdate: req.body.lastUpdate, //update by Date.now()
-        // partners: req.body.partners,
-        // fundRaised: req.body.fundRaised
+        status: req.body.status,
+        website: req.body.website,
+        socialmedia: {
+            twitter: req.body.twitter,
+            facebook: req.body.facebook,
+            linkedin: req.body.linkedin,
+            youtube: req.body.youtube,
+            instagram: req.body.instagram
+        },
+        spokePerson: req.body.spokePerson,
+        team: req.body.team,
+        sector: [req.body.sector],
+        skills: [req.body.skills],
+        onSite: req.body.onSite,
+        news: req.body.news,
+        pitch: req.body.pitch,
+        lastUpdate: req.body.lastUpdate, //update by Date.now()
+        partners: req.body.partners,
+        fundRaised: req.body.fundRaised
     }
     req.newCompany = new Company(req.companyData);
     next()
@@ -44,8 +44,7 @@ router.get('/', (req, res) => {
 router.post('/create', (req, res) => {
 
     req.newCompany.save((err, result) => {
-        console.log(err)
-        console.log('---------------------------')
+        console.log('controller/company/create:result')
         console.log(result)
         if (err) res.status(401).json();
         res.json(result);

@@ -39,7 +39,7 @@ class CompaniesIndex extends Component {
 
 
 function mapStateToProps(state) {
-	console.log('---------------------')
+	console.log('client/components/company_index:state')
     console.log(state)
 	return { Companies: state.Companies };
 }

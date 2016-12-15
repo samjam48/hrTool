@@ -1,4 +1,4 @@
-const mongoose    = require('mongoose');
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const Person = require("../models/person");
@@ -16,38 +16,38 @@ router.use('*', ((req, res, next) => {
 		gender: req.body.gender,
 		location: req.body.location,
 		website: req.body.website,
-		socialmedia: {			
-		    twitter: req.body.twitter,
-		    facebook: req.body.facebook,
-		    linkedin: req.body.linkedin,
-		    youtube: req.body.youtube,
-		    instagram: req.body.instagram,
+		socialmedia: {
+			twitter: req.body.twitter,
+			facebook: req.body.facebook,
+			linkedin: req.body.linkedin,
+			youtube: req.body.youtube,
+			instagram: req.body.instagram,
 		},
-		// workingAt : [req.body.workingAt] ,
+		workingAt: (req.body.workingAt == "default" ? [] : [req.body.workingAt]),
 		daysPerWeek: req.body.daysPerWeek,
 		role: req.body.role,
 		isMentor: req.body.isMentor,
-		menteeList: [req.body.menteeList],
-		skills: {			// TO DECIDE HOW THE FORM WILL SEND THE DATA. AS A WHOLE OBJECT OR INDIVIDUAL ELEMENTS?
-		    mainSkills: [req.body.mainSkills],
-		    skills: [req.body.skills],
+		menteeList: (req.body.menteeList == "default") ? [] : [req.body.menteeList],
+		skills: {
+			mainSkills: [req.body.mainSkills],
+			skills: [req.body.skills],
 		},
-		// organizations: [req.body.organizations]
+		organizations: (req.body.organizations == "default" ? [] : [req.body.organizations])
 	}
-	for( item in req.personData){
-		if( req.personData[item] == undefined ) req.personData[item] = '-'
+	for (item in req.personData) {
+		if (req.personData[item] == undefined) req.personData[item] = '-'
 	}
-	req.newPerson = new Person (req.personData)
+	req.newPerson = new Person(req.personData)
 
 	next()
 
-} ))
+}))
 
 
 
 router.get('/', (req, res) => {		        // render all Persons
 
-	mongoose.model('Person').all( (err, data) => {
+	mongoose.model('Person').all((err, data) => {
 		res.json(data)
 	})
 })
@@ -68,13 +68,14 @@ router.get('/', (req, res) => {		        // render all Persons
 router.post('/create', (req, res) => {	    // create new Person object and add first sighting
 	// console.log(req.body)
 	// console.log(req.newPerson)
-	req.newPerson.save( (err, data) => {
-		// console.log(err)
-		// console.log('-----------')
-		// console.log(data)
+	req.newPerson.save((err, data) => {
+		console.log('controller/persons/post/create:err--data')
+		console.log(err)
+		console.log('-----------')
+		console.log(data)
 		if (err) res.status(401).json();
 		res.json(data)
-	}) 
+	})
 
 })
 
@@ -89,7 +90,7 @@ router.post('/create', (req, res) => {	    // create new Person object and add f
 
 router.get('/delete/:id', (req, res) => {	// delete Person
 
-	mongoose.model('Person').delete(req.params.id , (err, result) => {
+	mongoose.model('Person').delete(req.params.id, (err, result) => {
 		res.redirect('/');
 	})
 })
@@ -98,13 +99,19 @@ router.get('/delete/:id', (req, res) => {	// delete Person
 
 router.post('/update/:id', (req, res) => {	// save changes to db
 
-	mongoose.model('Person').findItem(req.params.id , ( err, result) => {
+	console.log('req body')
+	console.log(req.body)
+	console.log('----------------')
+	console.log('req new person')
+	console.log(req.newPerson)
+
+	mongoose.model('Person').findItem(req.params.id, (err, result) => {
 		console.log('findItem')
 		console.log(result)
 		result.name = req.personData.name
 		result.location = req.personData.location
-		result.save( ( err, edit) => {
-			res.json(edit) 
+		result.save((err, edit) => {
+			res.json(edit)
 		})
 	})
 
@@ -115,10 +122,10 @@ router.post('/update/:id', (req, res) => {	// save changes to db
 
 //  ---------------------- 'removeAll' = TEMP FUNCTION NOT FOR DEPLOYEMENT!-------------------------------------
 router.get('/deletePersons', (req, res) => {		        // delete all person and render home page
-    mongoose.model('Person').removeAll(req, function(){
+	mongoose.model('Person').removeAll(req, function () {
 		res.redirect('/person')
 	})
-}) 
+})
 
 
 
@@ -129,7 +136,7 @@ router.get('/deletePersons', (req, res) => {		        // delete all person and r
 
 
 // router.get('/create', (req, res) => {	    //create new Person object and add first sighting
-	
+
 
 // 	var  newPerson = new Person ({ 
 // 		name: "nameTest",
@@ -154,7 +161,7 @@ router.get('/deletePersons', (req, res) => {		        // delete all person and r
 // 		}
 // 	})
 // // 	// console.log(newPerson)
-	
+
 // 	newPerson.save( (err) => {
 // 		if (err) throw err;
 // 		// console.log('Person saved successfully from router!');
