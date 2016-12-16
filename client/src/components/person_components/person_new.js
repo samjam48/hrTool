@@ -22,32 +22,6 @@ class PersonsNew extends Component {
 
 		this.props.dispatch(createPersonAsync(formProps, () => this.context.router.push('/person')));
 
-		// event.preventDefault() // stop default form submit stuff happening without our control
-
-
-		// // debugger
-		// // create object of input values (would be better to use redux form but causing issues...)
-		// var formObj = {
-		// 	name: event.target[0].value,
-		// 	location: event.target[1].value,
-		// 	gender: event.target[2].value,
-		// 	website: event.target[3].value,
-		// 	twitter: event.target[4].value,
-		// 	facebook: event.target[5].value,
-		// 	linkedin: event.target[6].value,
-		// 	youtube: event.target[7].value,
-		// 	instagram: event.target[8].value,
-		// 	workingAt: event.target[9].value,
-		// 	daysPerWeek: event.target[10].value,
-		// 	role: event.target[11].value,
-		// 	isMentor: event.target[12].value,
-		// 	menteeList: event.target[13].value,
-		// 	mainSkills: event.target[14].value,
-		// 	skills: event.target[15].value,
-		// 	organizations: event.target[16].value
-		// }
-
-		// dispatch input object to createPersons object and call new route url as the callback
 	}
 
 	render() {
@@ -107,7 +81,7 @@ class PersonsNew extends Component {
 				</div>
 
 
-				<Field component={optionalField} type="number" name="daysPerWeek" label="daysPerWeek" />
+				<Field component={optionalField} type="number"  name="daysPerWeek" label="daysPerWeek" />
 				<Field component={optionalField} type="text" name="role" label="Role" />
 
 
@@ -154,7 +128,7 @@ function validate(values) {
 	const errors = {};
 
 	if (!values.name) {
-		errors.name = 'Enter a title';
+		errors.name = 'Enter a name';
 	}
 	if (!values.location) {
 		errors.location = 'Enter at least one category';

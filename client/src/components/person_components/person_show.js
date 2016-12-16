@@ -47,11 +47,7 @@ class PersonShow extends Component {
 					<p>Website : {Person.website}</p>
 					<p>Socialmedia</p>
 					<ul>
-						<li>Twitter : {Person.socialmedia.twitter}</li>
-						<li>Facebook : {Person.socialmedia.facebook}</li>
-						<li>Linkedin : {Person.socialmedia.linkedin}</li>
-						<li>Youtube : {Person.socialmedia.youtube}</li>
-						<li>Instagram : {Person.socialmedia.instagram}</li>
+						{getSocialMedia(Person.socialmedia)}
 					</ul>
 					<p>Working at : {Person.workingAt}</p>
 					<p>Days per week : {Person.daysPerWeek}</p>  {/*to remove ?*/}
@@ -87,3 +83,16 @@ function mapStateToProps(state, ownProps) {
 
 
 export default connect(mapStateToProps, { deletePersonAsync })(PersonShow);
+
+{/*Nice to have : show social media icon instead of link/text*/ }
+function getSocialMedia(data) {
+	let socialmedia = [];
+	if (data != undefined) {
+		if (data.twitter != undefined) socialmedia.push(<li>Twitter : {data.twitter}</li>)
+		if (data.facebook != undefined) socialmedia.push(<li>Facebook : {data.facebook}</li>)
+		if (data.linkedin != undefined) socialmedia.push(<li>Linkedin : {data.linkedin}</li>)
+		if (data.youtube != undefined) socialmedia.push(<li>Youtube : {data.youtube}</li>)
+		if (data.instagram != undefined) socialmedia.push(<li>Instagram : {data.instagram}</li>)
+	}
+	return socialmedia;
+}
