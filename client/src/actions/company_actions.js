@@ -17,11 +17,11 @@ const ROOT_URL = 'http://localhost:3000'
 // };
 
 
-export function fetchCompaniesAsync() {
+export function fetchCompaniesAsync(token) {
     console.log("async fetch")
     return dispatch => {
         console.log("inside async fetch")
-        axios.get(`${ROOT_URL}/company`)
+        axios.get(`${ROOT_URL}/company`, token)
           .then(function (response) {
               console.log(response)
               response.data.forEach( (company) => dispatch(createCompany( company  ) ) )

@@ -36,6 +36,7 @@ router.use('*', (req, res, next) => {
 
 
 router.get('/', (req, res) => {
+    console.log(req.body)
     mongoose.model('Company').all((err, result) => {
         // res.render('companies.ejs', { Companies: result });
         res.json(result)

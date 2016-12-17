@@ -41,7 +41,7 @@ class Signup extends Component {
 function validate(formProps) {
   const errors = {};
 
-  if (!formProps.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formProps.email) ) {
+  if (!formProps.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(formProps.email) ) {
     errors.email = 'Please enter a valid email';
   }
 

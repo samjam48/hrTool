@@ -9,6 +9,7 @@ import { fetchCompaniesAsync } from './actions/company_actions';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, browserHistory }       from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { AUTH_USER } from './actions/types';
 
 
 import routes   from './routes';
@@ -26,8 +27,15 @@ var defaultState = {
 
 const createStoreWithMiddleware = applyMiddleware( Thunk, promise )( createStore );
 const store = createStoreWithMiddleware(reducers)
-store.dispatch( fetchPersonsAsync() )
-store.dispatch( fetchCompaniesAsync())
+let token = localStorage.getItem(token)
+console.log(token)
+
+// check if token is valid
+// if( token != undefined ){
+  store.dispatch({ type: AUTH_USER })
+  store.dispatch( fetchPersonsAsync() )
+  store.dispatch( fetchCompaniesAsync() )
+// }
 
 // const token = localStorage.getItem('token');
 // if (token) {
